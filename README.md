@@ -34,21 +34,19 @@ Started a **Python/PyGame** prototype.
   * **Status bars** - with decay over time
   * **Gameplay Menu Buttons** - Shelter, Fire, Inventory, etc <br>
 
-### Week 3 - TO DO
-Continue implementing the prototype.
+### Week 3 - DONE
+Continued to implement the prototype.
 
-#### Research
+#### Researched
  * Location/Condition/Actions
  * Crafting
  * Traps/Hunting
  * Injury/Illness
 
-#### Implement
+#### Implemented
 * Sleep 
 * Location 
 * Travel 
 * Game Over/ Game Won
 * Some items in inventory + Actions 
-* Fire Starting + Water Boiling
-* Getting Water 
-* Exploration 
+* Fire Starting 
