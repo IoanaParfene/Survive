@@ -35,7 +35,7 @@ Started a **Python/PyGame** prototype.
   * **Gameplay Menu Buttons** - Shelter, Fire, Inventory, etc <br>
 
 ### Week 3 - DONE
-Continued to implement the prototype.
+Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-P_h80Mxllpl8px9I0kCnYKUUrBwz3-bRW-A8E)).
 
 #### Researched
  * Location/Condition/Actions
