@@ -1,0 +1,1 @@
+"{\"available_items\": {\"pizza\": {\"name\": \"pizza\", \"categories\": [\"A\", \"Fo\"], \"quantity\": 0, \"individual_weight\": 1, \"maximum_capacity\": 500, \"throwable\": true, \"actions\": {\"Eat\": [[300, \"calories\"]]}}}, \"unavailable_items\": {}, \"max_capacity\": 20}"
