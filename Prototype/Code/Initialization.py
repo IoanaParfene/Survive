@@ -22,7 +22,7 @@ def initialize_actions():
                "Explore": Actions.Action('Explore', 'Explore', (400, 450), (220, 100)),
                "Sleep1": Actions.Action('Sleep1', 'Sleep 1h', (400, 150), (220, 100)),
                "Sleep4": Actions.Action('Sleep4', 'Sleep 4h', (650, 150), (220, 100)),
-               "Travel1": Actions.Action('Travel1', 'Travel1', (400, 100), (700, 180)),
+               "Travel1": Actions.Action('Travel1', 'Travel1', (400, 120), (700, 180)),
                "Travel2": Actions.Action('Travel2', 'Travel2', (400, 320), (700, 180)),
                "Item0": Actions.Action('Item0', 'Item0', (1050, 370), (100, 40)),
                "Item1": Actions.Action('Item1', 'Item1', (1050, 435), (70, 40)),
