@@ -50,3 +50,17 @@ Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-
 * Game Over/ Game Won
 * Some items in inventory + Actions 
 * Fire Starting 
+
+### Week 4 - DONE
+Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-P_h80Mxllpl8px9I0kCnYKUUrBwz3-bRW-A8E)).
+
+#### Implemented
+* New Game
+* Save/Load
+
+### Week 5 - DONE
+Started converting code to Kivy
+
+#### Implemented
+* Converted most code(Remaining Inventory and Fire)
+* Added GUI Components
