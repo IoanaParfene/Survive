@@ -68,6 +68,7 @@ def main():
 
         elif game_state.game_scenes["Main"] is True:
             # Display and create scene graphics and interactive elements
+            print(game_state.get_game_time())
             Gameplay.render_menu_scene(game_state, buttons, actions)
 
         pygame.display.update()

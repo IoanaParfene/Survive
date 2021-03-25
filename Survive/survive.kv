@@ -1,0 +1,561 @@
+<StartMenu>:
+    FloatLayout:
+
+        BackgroundStart:
+            id: background_start
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            id: load_button
+            pos_hint:{"x": 0.65, "y": 0.29}
+            size_hint: 0.2, 0.1
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: 25
+            text: "LOAD"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.try_loading()
+
+
+        Button:
+            pos_hint:{"x": 0.65, "y": 0.17}
+            size_hint: 0.2, 0.1
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: 25
+            text: "NEW GAME"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.new_game()
+
+
+<GameWindow>:
+    FloatLayout:
+        Background:
+            id: background
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Label:
+            id: time_label
+            text:"12 HOURS OF DAYLIGHT REMAINING"
+            font_size:25
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.85}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: location_label
+            text:"PIKE LAKE | DAY 1 | 50 MILES LEFT"
+            font_size:25
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.79}
+            size_hint: 0.7, 0.23
+
+        Button:
+            pos_hint:{"x": 0.36, "y": 0.61}
+            size_hint: 0.17, 0.23
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: 23
+            text: "SHELTER"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("shelter")
+
+        Button:
+            pos_hint:{"x": 0.57, "y": 0.61}
+            size_hint: 0.17, 0.23
+            background_color: 0.0, 0.0, 0.0, 0.2
+            text: "FIRE"
+            disabled: True
+            font_size: 23
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("fire")
+
+        Button:
+            pos_hint:{"x": 0.78, "y": 0.61}
+            size_hint: 0.17, 0.23
+            background_color: 0.0, 0.0, 0.0, 0.2
+            disabled: True
+            text: "GET WATER"
+            font_size: 23
+
+
+        Button:
+            id: wood_button
+            pos_hint:{"x": 0.36, "y": 0.34}
+            size_hint: 0.17, 0.23
+            disabled: True
+            background_color: 0.0, 0.0, 0.0, 0.2
+            text: "GET WOOD"
+            font_size: 23
+
+        Button:
+            pos_hint:{"x": 0.57, "y": 0.34}
+            size_hint: 0.17, 0.23
+            text: "CRAFT"
+            disabled: True
+            background_color: 0.0, 0.0, 0.0, 0.2
+            font_size: 23
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("crafting")
+
+        Button:
+            pos_hint:{"x": 0.78, "y": 0.34}
+            size_hint: 0.17, 0.23
+            text: "INVENTORY"
+            disabled: True
+            background_color: 0.0, 0.0, 0.0, 0.2
+            font_size: 23
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("inventory")
+
+        Button:
+            pos_hint:{"x": 0.36, "y": 0.07}
+            size_hint: 0.17, 0.23
+            font_size: 23
+            text: "EXPLORE"
+            disabled: True
+            background_color: 0.0, 0.0, 0.0, 0.2
+
+        Button:
+            pos_hint:{"x": 0.57, "y": 0.07}
+            size_hint: 0.17, 0.23
+            text: "TRAPS/HUNT"
+            disabled: True
+            background_color: 0.0, 0.0, 0.0, 0.2
+            font_size: 22
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("hunting")
+
+        Button:
+            pos_hint:{"x": 0.78, "y": 0.07}
+            size_hint: 0.17, 0.23
+            text: "TRAVEL"
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: 23
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("travel")
+
+        Button:
+            pos_hint:{"x": 0.91, "y": 0.90}
+            size_hint: 0.04, 0.07
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: 20
+            text: "||"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.change_window("pause")
+
+        Label:
+            id: calories_label
+            text:"CALORIES: 1100/3000"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.017}
+            size_hint: 0.7, 0.1
+
+        ProgressBar:
+            id: my_condition_bar
+            min: 0
+            max: 100
+            value: 100
+            background_color: 1, 0.3, 0.4, 0.85
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: condition_label
+            text:"CONDITION"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: condition_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.25, 0.23
+
+        ProgressBar:
+            id: my_heat_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.15}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: heat_label
+            text:"BODY HEAT"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: heat_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+            size_hint: 0.25, 0.23
+
+        ProgressBar:
+            id: my_hydration_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.05}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: hydration_label
+            text:"HYDRATION"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+            size_hint: 0.25, 0.23
+
+        Label:
+            id: hydration_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+            size_hint: 0.25, 0.23
+
+
+<GameOverScreen>:
+    FloatLayout:
+        BackgroundOver:
+            id: background_over
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            pos_hint:{"x": 0.77, "y": 0.05}
+            size_hint: 0.17, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "Main Menu"
+            on_release:
+                root.return_main_menu()
+
+
+<ShelterScreen>:
+    FloatLayout:
+        Background:
+            id: background
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+        Label:
+            id: time_label
+            text:"12 HOURS OF DAYLIGHT REMAINING"
+            font_size:25
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.85}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: location_label
+            text:"PIKE LAKE | DAY 1 | 50 MILES LEFT"
+            font_size:25
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.79}
+            size_hint: 0.7, 0.23
+
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+        Button:
+            pos_hint:{"x": 0.4, "y": 0.55}
+            size_hint: 0.2, 0.2
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "REST 1H"
+            on_release:
+                root.rest_1_h()
+
+        Button:
+            pos_hint:{"x": 0.65, "y": 0.55}
+            size_hint: 0.2, 0.2
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "REST 4H"
+            on_release:
+                root.rest_4_h()
+
+        Button:
+            pos_hint:{"x": 0.4, "y": -5000}
+            size_hint: 0.2, 0.2
+            font_size: 20
+            background_color: 0.0, 0.0, 0.0, 0.2
+            disabled: True
+            text: "BUILD RAINCATCHER"
+
+        Label:
+            id: calories_label
+            text:"CALORIES: 1100/3000"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.017}
+            size_hint: 0.7, 0.1
+
+        ProgressBar:
+            id: my_condition_bar
+            min: 0
+            max: 100
+            value: 100
+            background_color: 1, 0.3, 0.4, 0.85
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: condition_label
+            text:"CONDITION"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: condition_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.25, 0.23
+
+        ProgressBar:
+            id: my_heat_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.15}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: heat_label
+            text:"BODY HEAT"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+            size_hint: 0.7, 0.23
+
+        Label:
+            id: heat_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+            size_hint: 0.25, 0.23
+
+        ProgressBar:
+            id: my_hydration_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.05}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: hydration_label
+            text:"HYDRATION"
+            font_size:20
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+            size_hint: 0.25, 0.23
+
+        Label:
+            id: hydration_label_value
+            text:"100"
+            font_size:20
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+            size_hint: 0.25, 0.23
+
+        ActionMessage:
+            id: action_message
+            canvas.before:
+                Rectangle:
+                    source: "Images/sleeping.png"
+                    size: self.width, self.height
+                    pos: self.x, self.my_y
+
+<FireScreen>:
+    FloatLayout:
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+<CraftingScreen>:
+    FloatLayout:
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+<InventoryScreen>:
+    FloatLayout:
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+<HuntingScreen>:
+    FloatLayout:
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+
+<TravelScreen>:
+    FloatLayout:
+
+        Background:
+            id: background
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.05}
+            size_hint: 0.1, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+        Button:
+            id: travel_1
+            pos_hint:{"x": 0.15, "y": 0.6}
+            size_hint: 0.7, 0.3
+            font_size: 30
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "TRAVEL 1"
+            on_release:
+                root.travel(0)
+
+
+        Button:
+            id: travel_2
+            pos_hint:{"x": 0.15, "y": 0.25}
+            size_hint: 0.7, 0.3
+            font_size: 30
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "TRAVEL 2"
+            on_release:
+                root.travel(0)
+
+<PauseScreen>:
+    FloatLayout:
+        BackgroundPause:
+            id: background_pause
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            pos_hint:{"x": 0.385, "y": 0.6}
+            size_hint: 0.25, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+
+            text: "SAVE & QUIT"
+            on_release:
+                root.save_quit_window()
+
+
+        Button:
+            pos_hint:{"x": 0.385, "y": 0.75}
+            size_hint: 0.25, 0.1
+            font_size: 25
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "RESUME"
+            on_release:
+                root.return_game_window()
+
+

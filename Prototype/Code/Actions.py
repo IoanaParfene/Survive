@@ -1,4 +1,5 @@
 import pygame
+import Prototype.Code.Config as Config
 import time
 
 
@@ -25,10 +26,30 @@ class Action:
 
 
 def getwater_action(game_state):
-    print("Get Water")
+    import pickle
+    print('------quitting and saving game------')
+    # quitting the game, serialising the player and the enemy data
+    with open(Config.get_path('save_game.pkl'), 'wb') as save_game:
+        game_state.save_time = time.time()
+        pickle.dump(game_state, save_game)
+    print(game_state.remaining_miles)
+    for key in vars(game_state):
+        print(key)
+    """game_state.remaining_miles = 10000
+    with open(Config.get_path('save_game.pkl'), 'rb') as load_game:
+        bob = pickle.load(load_game)
+        game_state = bob
+        print(game_state.remaining_miles)"""
 
 
 def explore_action(game_state):
+    import pickle
+    with open(Config.get_path('save_game.pkl'), 'rb') as load_game:
+        bob = pickle.load(load_game)
+    for vari in vars(game_state):
+        setattr(game_state, vari, getattr(bob, vari))
+    game_state.start_time += time.time()-game_state.save_time
+    game_state.start_paused_time +=time.time()-game_state.save_time
     print("Explore")
 
 

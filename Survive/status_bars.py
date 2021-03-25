@@ -22,17 +22,25 @@ class StatusBar:
             decay_counter = game_state.game_time // item[1]
             if abs(decay_counter - item[2]) > 0:
                 if int(self.current_value - abs(decay_counter - item[2]) * item[0]) < (-self.max_value/10):
-                    print("cats")
-                    game_state.game_over = "Lost"
+                    print(self.name)
+                    print(int(self.current_value - abs(decay_counter - item[2]) * item[0]))
+                    print(-self.max_value/10)
+                    print("Bob2")
+                    #game_state.game_over = "Lost"
                 else:
+                    print(int(self.current_value - abs(decay_counter - item[2]) * item[0]))
+                    print(-self.max_value / 10)
                     self.current_value = int(self.current_value - abs(decay_counter - item[2]) * item[0])
+                    print(self.name, self.current_value)
+                    if self.current_value < (-self.max_value / 10):
+                        game_state.game_over = "Lost"
                 # Last decay that happened based on passed game time
                 item[2] = decay_counter
 
     def immediate_decay(self, damage, game_time):
         """ Take immediate decay based on damage of a certain action"""
         if self.current_value - damage < (-self.max_value / 20):
-            print("dogs")
+            print("Bob")
             game_time.game_over = "Lost"
         else:
             self.current_value -= damage
@@ -42,8 +50,6 @@ class StatusBar:
             self.current_value = self.max_value
         else:
             self.current_value += increase
-
-
 
     def __str__(self):
         """ For console printing purposes """

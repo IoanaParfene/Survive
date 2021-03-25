@@ -5,7 +5,7 @@ import time
 
 class GameState:
     def __init__(self, inventory, status_bars):
-        self.screen = Config.screen
+        #self.screen = Config.screen
         self.game_speed = Config.game_speed
         self.start_time = Config.start_time
         self.game_time = Config.game_time
@@ -15,7 +15,7 @@ class GameState:
         self.running = Config.running
         self.current_scene = Config.current_scene
         self.game_scenes = Config.game_scenes
-        self.background = Config.background
+        #self.background = Config.background
         self.current_location = Config.current_location
         self.game_locations = Config.game_locations
         self.game_location_info = Config.game_location_info
@@ -29,6 +29,7 @@ class GameState:
                             random.choice(list(self.game_locations.keys())[1:])]
         self.game_over = Config.game_over
         self.fire = Config.fire
+        self.save_time = 0
 
     def update_paused_time(self):
         last_paused_time = time.time() - self.start_paused_time
@@ -58,7 +59,7 @@ class GameState:
         name, miles, duration = self.game_location_info[location].values()
         self.action_loading_message("Walking for " + str(duration) + " hours towards nearby " + name, (50, 250))
         self.skipped_time += duration * 60
-        if self.remaining_miles-miles <=0:
+        if self.remaining_miles-miles <= 0:
             self.game_over = "Won"
         else:
             self.remaining_miles -= miles
@@ -71,8 +72,8 @@ class GameState:
 
     def action_loading_message(self, message, writing_corner):
         font = pygame.font.SysFont('Comic Sans MS', 40)
-        pygame.draw.rect(self.screen, (0, 0, 0), (0, 0, 1200, 600))
-        self.screen.blit(font.render(message, True, (255, 255, 255)), writing_corner)
+        pygame.draw.rect(Config.screen, (0, 0, 0), (0, 0, 1200, 600))
+        Config.screen.blit(font.render(message, True, (255, 255, 255)), writing_corner)
         pygame.display.update()
         time.sleep(2)
         self.paused_time += 2
