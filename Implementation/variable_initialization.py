@@ -1,5 +1,5 @@
 # Game related time variables
-game_speed = 10
+game_speed = 1
 game_time = 0
 paused_time = 0
 start_paused_time = 0
@@ -12,7 +12,7 @@ time_is_stopped = True
 current_game_day = 1
 current_day_period = "DAYLIGHT"
 current_weather = "rain"
-remaining_miles = 50
+remaining_miles = 30
 
 # PyGame running loop
 running = True
@@ -22,11 +22,12 @@ replay = "No"
 # Game locations
 current_location = "pike_lake"
 game_locations = {"pike_lake": True, "flooded_area": False, "muddy_road": False, "path": False, "woodland": False}
-game_location_info = {"pike_lake": {"Name": "Pike Lake", "Miles": 3, "Duration": 3},
-                      "flooded_area": {"Name": "Flooded Area", "Miles:": 4, "Duration": 5},
-                      "muddy_road": {"Name": "Muddy Road", "Miles:": 4, "Duration": 5},
-                      "path": {"Name": "Path", "Miles:": 3, "Duration": 3},
-                      "woodland": {"Name": "Woodland", "Miles:": 4, "Duration": 3}
+game_location_info = {"pike_lake": {"Name": "Pike Lake", "Miles": 3, "Duration": 3, "Water Source": True, "Explorables": (4,[("flashlight",15), ("wires",30), ("empty_bottle",15), ("newspaper",15), ("duct_tape",9), ("fishing_kit",8), ("matches",8)]) },
+                      "flooded_area": {"Name": "Flooded Area", "Miles": 2, "Duration": 4, "Water Source": True, "Explorables": (4, [("plant_fiber", 38), ("maggots", 17), ("cattail_plant", 45)])},
+                      "muddy_road": {"Name": "Muddy Road", "Miles": 2, "Duration": 3, "Water Source": False, "Explorables": (10, [("plant_fiber", 9), ("crickets", 14), ("birch_bark", 24), ("edible_berries",33), ("wood",20)])},
+                      "muddy_area": {"Name": "Muddy Area", "Miles": 2, "Duration": 3, "Water Source": True, "Explorables": (8, [("plant_fiber", 23), ("crickets", 23), ("birch_bark", 7), ("edible_berries",12), ("wood",35)])},
+                      "path": {"Name": "Path", "Miles": 3, "Duration": 3, "Water Source": False, "Explorables": (9, [("maggots", 29), ("crickets", 33), ("cattail_plant", 24), ("edible_berries",14)])},
+                      "woodland": {"Name": "Woodland", "Miles": 2, "Duration": 3, "Water Source": False, "Explorables": (7, [("maggots", 38), ("crickets", 28), ("cattail_plant", 28), ("edible_berries",6)])}
                       }
 
 # Inventory variables
@@ -37,18 +38,18 @@ inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "
                     "empty_bottle": {"Name": "Empty Bottle", "Weight": 1.0, "Categories": ["A","Wa"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Plastic bottle. Empty. I gotta fill this somehow."},
                     "water_bottle_safe": {"Name": "Safe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Hydration", 25.0)]}, "Description": "Plastic bottle. Full of portable water."},
                     "water_bottle_unsafe": {"Name": "Unsafe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Hydration", 25.0), ("Condition",-30.0)]}, "Description": "Plastic bottle. Full of unsafe water. It looks quite clean but I should purify this somehow."},
-                    "energy_bar": {"Name": "Energy Bar", "Weight": 0.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": {"Make Bait": ["bait","bait"]}, "BarActions": {"Eat": [("Calories", 150.0)]}, "Description": "Supplemental bar containing high energy food. Perfect for people that need a quick energy boost. Calories 150."},
+                    "energy_bar": {"Name": "Energy Bar", "Weight": 0.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": {"Slice": ["bait","bait"]}, "BarActions": {"Eat": [("Calories", 150.0)]}, "Description": "Supplemental bar containing high energy food. Perfect for people that need a quick energy boost. Calories 150."},
                     "tinder": {"Name": "Tinder", "Weight": 0.34, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Combustible material that will ignite with a small spark. Any kind of dry fluffy stuff will do."},
                     "hardwood": {"Name": "Hardwood", "Weight": 4.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Split": ["wood","wood"]}, "BarActions": None, "Description": "Dense wood. Burns long and can be used for crafting."},
                     "matches": {"Name": "Matches", "Weight": 0.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Stormproof matches are a reliable and fast way to start a fire."},
-                    "crickets": {"Name": "Crickets", "Weight": 0.34, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Make Bait": ["bait"]}, "BarActions": {"Eat": [("Calories", 100.0)]}, "Description": "Handful of insects. They sure have large back legs. Calories 100."},
-                    "maggots": {"Name": "Maggots", "Weight": 0.34, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Make Bait": ["bait"]}, "BarActions": {"Eat": [("Calories", 50.0)]}, "Description": "I wonder if I can eat these. Calories 50."},
+                    "crickets": {"Name": "Crickets", "Weight": 0.34, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Slice": ["bait"]}, "BarActions": {"Eat": [("Calories", 100.0)]}, "Description": "Handful of insects. They sure have large back legs. Calories 100."},
+                    "maggots": {"Name": "Maggots", "Weight": 0.34, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Slice": ["bait"]}, "BarActions": {"Eat": [("Calories", 50.0)]}, "Description": "I wonder if I can eat these. Calories 50."},
                     "bottle_of_soda": {"Name": "Soda Bottle", "Weight": 2.0, "Categories": ["A","Fo","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Calories", 300.0), ("Hydration", 25.0)]}, "Description": "Plastic bottle. Sugary drink with added vitamins. Gives a short lasting energy boost. Calories 300."},
-                    "edible_berries": {"Name": "Edible Berries", "Weight": 1.0, "Categories": ["A","Fo","Wa"], "Throw": True, "GetActions": {"Make Bait": ["bait"]}, "BarActions": {"Eat": [("Calories", 100.0), ("Hydration", 5.0)]}, "Description": "Berries. Better than nothing. Calories 100."},
-                    "peanuts": {"Name": "Peanuts", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Make Bait": ["bait"]}, "BarActions": {"Eat": [("Calories", 150.0)]}, "Description": "Honey flavored roasted peanuts. Plenty of fat and protein. Calories 150."},
+                    "edible_berries": {"Name": "Edible Berries", "Weight": 1.0, "Categories": ["A","Fo","Wa"], "Throw": True, "GetActions": {"Slice": ["bait"]}, "BarActions": {"Eat": [("Calories", 100.0), ("Hydration", 5.0)]}, "Description": "Berries. Better than nothing. Calories 100."},
+                    "peanuts": {"Name": "Peanuts", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Slice": ["bait"]}, "BarActions": {"Eat": [("Calories", 150.0)]}, "Description": "Honey flavored roasted peanuts. Plenty of fat and protein. Calories 150."},
                     "squirrel_juice": {"Name": "Squirrel Juice", "Weight": 1.0, "Categories": ["A","Fo","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Calories", 100.0), ("Hydration", 25.0)]}, "Description": "Bottle of sugary juice. Very tasty and refreshing. Calories 100."},
                     "canned_corn": {"Name": "Canned Corn", "Weight": 2.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": None, "BarActions": {"Eat": [("Calories", 400.0)]}, "Description": "Big can full of corn. Better than peas. Calories 400."},
-                    "smoked_jerky": {"Name": "Smoked Jerky", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": {"Make Bait": ["bait","bait"]}, "BarActions": {"Eat": [("Calories", 300.0)]}, "Description": "Strips of meat. Smoked to prevent spoilage. Calories 300."},
+                    "smoked_jerky": {"Name": "Smoked Jerky", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": {"Slice": ["bait","bait"]}, "BarActions": {"Eat": [("Calories", 300.0)]}, "Description": "Strips of meat. Smoked to prevent spoilage. Calories 300."},
                     "can_of_peas": {"Name": "Can of Peas", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": None, "BarActions": {"Eat": [("Calories", 300.0)]}, "Description": "Peas in a tin can. Expiration date still alright. Calories 300."},
                     "cattail_plant": {"Name": "Cattail Plant", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Harvest": ["edible_plant_part","plant_fiber","tinder"]}, "BarActions": None, "Description": "Very useful plant."},
                     "edible_plant_part": {"Name": "Edible Plant Part", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": None, "BarActions": {"Eat": [("Calories", 50.0)]}, "Description": "Here's the edible portion of a plant I found. Calories 50."},

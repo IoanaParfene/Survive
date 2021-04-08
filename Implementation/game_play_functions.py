@@ -41,7 +41,7 @@ def immediate_status_bar_decay(status_bar_name, damage):
     """ Take immediate decay based on damage of a certain action"""
     status_bars = gs.game_state.status_bars
     if status_bars[status_bar_name].current_value - damage < (-status_bars[status_bar_name].max_value / 20):
-        gs.game_state.game_time.game_over = "Lost"
+        gs.game_state.game_over = "Lost"
     else:
         status_bars[status_bar_name].current_value -= damage
 

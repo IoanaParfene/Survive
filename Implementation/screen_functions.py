@@ -64,3 +64,5 @@ def display_inventory():
                 sc.sm.get_screen("inventory").ids.inv_item_5.text = ""
                 sc.sm.get_screen("inventory").ids.inv_quantity_5.text = ""
                 sc.sm.get_screen("inventory").ids.inv_weight_5.text = ""
+
+

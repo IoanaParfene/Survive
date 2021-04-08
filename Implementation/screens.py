@@ -1,20 +1,15 @@
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
-from kivy.properties import StringProperty, NumericProperty, ListProperty
-from kivy.uix.togglebutton import ToggleButton
-from kivy.uix.anchorlayout import AnchorLayout
-from kivymd.uix.datatables import MDDataTable
+from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.floatlayout import FloatLayout
 import variable_initialization as var_init
+from kivy.uix.modalview import ModalView
 from kivy.uix.widget import Widget
-from kivy.uix.button import Button
 import game_play_functions as gpf
-from kivy.uix.label import Label
+from  kivy.uix.label import Label
 from kivy.uix.popup import Popup
 import display_functions as df
 from kivy.lang import Builder
 from kivy.clock import Clock
-from kivymd.app import MDApp
-from kivy.metrics import dp
 import status_bars as sb
 import game_state as gs
 import inventory as inv
@@ -57,6 +52,31 @@ class GameWindow(Screen):
             var_init.inventory_display_category = "A"
             var_init.inventory_display_page = 0
         sm.current = new_current_window
+
+    def explore(self):
+        found_items = random.choices([1,2], weights=(70,30), k=1)[0]
+        text = "You explored for one hour and found:"
+        for index in range(0, found_items):
+            if not gs.game_state.current_location["Explorables"]:
+                text = "There is nothing left to explore.."
+            else:
+                gs.game_state.paused_time += 1
+                gs.game_state.skipped_time += 60
+                gpf.immediate_status_bar_decay("Calories", 50)
+                item_position = random.randrange(len(gs.game_state.current_location["Explorables"]))
+                item_code = gs.game_state.current_location["Explorables"][item_position]
+                print(item_code)
+                gs.game_state.current_location["Explorables"].pop(item_position)
+                text += " " + var_init.inventory_items[item_code]["Name"] + ","
+                gs.game_state.inventory.items[item_code]["Quantity"] += 1
+                gpf.immediate_status_bar_decay("Calories", 50)
+        text = text[:-1]
+
+        view = ModalView(pos_hint={"x": 0.0,"y":0.25}, size_hint=(1.0, 0.5), background="Images/black.png")
+        view.add_widget(Label(text=text, pos_hint={"x": 0.1,"y":0.25}, size_hint=(0.8, 0.5),
+                              font_size=self.height*0.05, text_size=self.size, halign='center', valign='middle'))
+        view.open()
+        print(text)
 
 
 class StartMenu(Screen):
@@ -362,17 +382,22 @@ class TravelScreen(Screen):
         """ Travel to a new chosen location"""
         self.ids.action_message_travel.change_y(0)
         Clock.schedule_once(self.message_action, 1)
-        location = gs.game_state.travel_next[travel_path]
-        name, miles, duration = gs.game_state.game_location_info[location].values()
+        name, miles, duration = gs.game_state.travel_next[travel_path]["Name"], gs.game_state.travel_next[travel_path]["Miles"], \
+                                gs.game_state.travel_next[travel_path]["Duration"]
+        if gs.game_state.status_bars["Calories"].current_value < 400:
+            duration += 2
+
         gs.game_state.paused_time += 1
         gs.game_state.skipped_time += duration * 60
         if gs.game_state.remaining_miles - miles <= 0:
             gs.game_state.game_over = "Won"
         else:
             gs.game_state.remaining_miles -= miles
-        gs.game_state.current_location = location
-        gs.game_state.travel_next = [random.choice(list(gs.game_state.game_locations.keys())[1:]),
-                                     random.choice(list(gs.game_state.game_locations.keys())[1:])]
+
+        gpf.immediate_status_bar_decay("Calories", duration*50)
+        gs.game_state.current_location = gs.game_state.travel_next[travel_path]
+        gs.game_state.travel_next = [gs.randomize_location_info(random.choice(list(gs.game_state.game_locations.keys())[1:])),
+                                    gs.randomize_location_info(random.choice(list(gs.game_state.game_locations.keys())[1:]))]
 
     def return_game_window(self, *args):
         sm.current = "game"

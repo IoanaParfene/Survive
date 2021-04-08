@@ -1,17 +1,18 @@
+import variable_initialization as var_init
+from kivy.uix.widget import Widget
 import game_play_functions as gpf
 import display_functions as df
 import screen_functions as sf
-from kivy.uix.widget import Widget
-import game_state as gs
-from kivy.lang import Builder
 from kivy.clock import Clock
-import screens as sc
 from kivymd.app import MDApp
+import game_state as gs
+import screens as sc
 import time
 import os
 
 from kivy.core.window import Window
 Window.maximize()
+
 
 class GamePlay(Widget):
     def update(self):
@@ -70,7 +71,8 @@ class SurviveApp(MDApp):
                 sc.sm.get_screen(screen_type).ids.my_heat_bar.value = heat_value
                 sc.sm.get_screen(screen_type).ids.heat_label_value.text = str(heat_value)
 
-                calories = gs.game_state.status_bars["Calories"].current_value
+                calories = max(0, min(gs.game_state.status_bars["Calories"].max_value,
+                           gs.game_state.status_bars["Calories"].current_value))
                 sc.sm.get_screen(screen_type).ids.calories_label.text = "CALORIES: " + str(calories) + "/3000"
 
         for screen_type in ["game", "shelter", "travel", "inventory"]:
@@ -99,14 +101,25 @@ class SurviveApp(MDApp):
         elif sc.sm.current == "hunting":
             pass
         elif sc.sm.current == "travel":
-            name, miles, duration = gs.game_state.game_location_info[gs.game_state.travel_next[0]].values()
-            text = name.upper() + " | " + str(miles) + " MILES | " + str(duration) + " HOURS"
+            name, miles = gs.game_state.travel_next[0]["Name"], gs.game_state.travel_next[0]["Miles"]
+            hours = var_init.game_location_info[gs.game_state.travel_next[0]["Key"]]["Duration"]
+            if gs.game_state.status_bars["Calories"].current_value<400:
+                text = name.upper() + " | " + str(miles) + " MILES | " + str(hours+2) + "-" + str(hours+2+1) + " HOURS"
+            else:
+                text = name.upper() + " | " + str(miles) + " MILES | " + str(hours) + "-" + str(hours + 1) + " HOURS"
             if gs.game_state.current_day_period == "DARKNESS":
                 text = "???"
             sc.sm.get_screen("travel").ids.travel_1.text = text
             gs.game_state.game_time = gpf.get_game_time()
-            name, miles, duration = gs.game_state.game_location_info[gs.game_state.travel_next[1]].values()
-            text = name.upper() + " | " + str(miles) + " MILES | " + str(duration) + " HOURS"
+
+            name, miles = gs.game_state.travel_next[1]["Name"], gs.game_state.travel_next[1]["Miles"]
+            hours = var_init.game_location_info[gs.game_state.travel_next[1]["Key"]]["Duration"]
+            if gs.game_state.status_bars["Calories"].current_value < 400:
+                text = name.upper() + " | " + str(miles) + " MILES | " + str(hours + 2) + "-" + str(
+                    hours + 2 + 1) + " HOURS"
+            else:
+                text = name.upper() + " | " + str(miles) + " MILES | " + str(hours) + "-" + str(
+                    hours + 1) + " HOURS"
             if gs.game_state.current_day_period == "DARKNESS":
                 text = "???"
             sc.sm.get_screen("travel").ids.travel_2.text = text
@@ -119,9 +132,12 @@ class SurviveApp(MDApp):
     def build(self):
         return sc.sm
 
+    def on_pause(self):
+        print("Pizza")
+        return True
 
-"""# Kivy style file
-kv = Builder.load_file("survive.kv")"""
+    def on_resume(self):
+        print("resumed")
 
 if __name__ == "__main__":
     SurviveApp().run()

@@ -25,7 +25,7 @@ def game_time_description():
 
 def get_progress_description():
     """ Display location, day and miles left """
-    game_progress = gs.game_state.game_location_info[gs.game_state.current_location]["Name"].upper() + " | DAY " + \
+    game_progress = gs.game_state.current_location["Name"].upper() + " | DAY " + \
                     str(gs.game_state.current_game_day).upper() + " | " + \
                     str(gs.game_state.remaining_miles).upper() + " MILES LEFT"
     return game_progress

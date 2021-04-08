@@ -128,8 +128,9 @@
             size_hint: 0.17, 0.23
             font_size: self.height*0.2
             text: "EXPLORE"
-            disabled: True
-            background_color: 0.0, 0.0, 0.0, 0.2
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.explore()
 
         Button:
             pos_hint:{"x": 0.57, "y": 0.07}
@@ -257,6 +258,7 @@
             halign: 'right'
             valign: 'middle'
             pos_hint:{"x": 0.05, "y": 0.055}
+
 
 
 <GameOverScreen>:
