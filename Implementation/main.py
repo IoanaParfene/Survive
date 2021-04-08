@@ -132,12 +132,6 @@ class SurviveApp(MDApp):
     def build(self):
         return sc.sm
 
-    def on_pause(self):
-        print("Pizza")
-        return True
-
-    def on_resume(self):
-        print("resumed")
 
 if __name__ == "__main__":
     SurviveApp().run()

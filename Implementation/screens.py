@@ -259,7 +259,9 @@ class InventoryScreen(Screen):
                     item = gs.game_state.inventory.items[key]
             if item["Quantity"] > 0:
                 item["Quantity"] -= 1
+                item["InventorySpace"] = float(int(item["Quantity"] * item["Weight"]))
                 self.ids.item_quantity.text = str(int(item["Quantity"])) + " remaining"
+                self.ids.item_weight.text = "Weight: " + str(int(item["InventorySpace"]))
                 if item["Quantity"] == 0:
                     sm.get_screen("inventory").item_popup.dismiss()
 
@@ -270,7 +272,9 @@ class InventoryScreen(Screen):
 
             if item["Quantity"] > 0:
                 item["Quantity"] -= 1
+                item["InventorySpace"] = float(int(item["Quantity"] * item["Weight"]))
                 self.ids.item_quantity.text = str(int(item["Quantity"])) + " remaining"
+                self.ids.item_weight.text = "Weight: " + str(int(item["InventorySpace"]))
                 for key, value in item["BarActions"].items():
                     for change in item["BarActions"][key]:
                         gpf.immediate_status_bar_increase(change[0], change[1])
@@ -284,7 +288,9 @@ class InventoryScreen(Screen):
 
             if item["Quantity"] > 0:
                 item["Quantity"] -= 1
+                item["InventorySpace"] = float(int(item["Quantity"] * item["Weight"]))
                 self.ids.item_quantity.text = str(int(item["Quantity"])) + " remaining"
+                self.ids.item_weight.text = "Weight: " + str(int(item["InventorySpace"]))
                 for key, value in item["GetActions"].items():
                     received_dict = {}
                     for received_item in item["GetActions"][key]:
@@ -302,10 +308,10 @@ class InventoryScreen(Screen):
         for key, value in gs.game_state.inventory.items.items():
             if gs.game_state.inventory.items[key]["Name"] == text:
                 item = gs.game_state.inventory.items[key]
-        show.ids.item_quantity.text = str(int(item["InventorySpace"])) + " remaining"
+        show.ids.item_quantity.text = str(int(item["Quantity"])) + " remaining"
         show.ids.item_description.text = "      " + item["Description"]
         show.ids.item_name.text = item["Name"]
-        show.ids.item_weight.text = "Weight: " + str(int(item["Weight"]))
+        show.ids.item_weight.text = "Weight: " + str(int(item["InventorySpace"]))
 
         if item["BarActions"] is not None:
             print(item["BarActions"])

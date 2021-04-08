@@ -21,8 +21,7 @@ def display_inventory():
         var_init.inventory_display_page -=1
     for item in range(1,6):
         #print(len(display_list), item + 5 * var_init.inventory_display_page - 1)
-        if item + 5 * var_init.inventory_display_page - 1 < len(display_list):
-            #print(len(display_list))
+        if item + 5 * var_init.inventory_display_page - 1 < len(display_list) and (item + 5 * var_init.inventory_display_page -1) >= 0:
             if item == 1:
                 sc.sm.get_screen("inventory").ids.inv_item_1.text = display_list[item + 5 * var_init.inventory_display_page - 1][1]["Name"]
                 sc.sm.get_screen("inventory").ids.inv_quantity_1.text = str(int(display_list[item + 5 * var_init.inventory_display_page - 1][1]["Quantity"])) + " remaining"
