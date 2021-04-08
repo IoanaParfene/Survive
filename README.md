@@ -19,7 +19,7 @@ hypothermia, dehydration*** and **illness**. <br>
 
 <hr style="border:2px solid gray"> </hr>
 
-## Progress
+## Progress - [Download for Android](https://drive.google.com/file/d/1rumjD4Fmk93jUjX2HyFNLOEjXvTLc-8F/view?usp=sharing)
 
 ### Week 2
 Started a **Python/PyGame** prototype. 
@@ -35,7 +35,7 @@ Started a **Python/PyGame** prototype.
   * **Gameplay Menu Buttons** - Shelter, Fire, Inventory, etc <br>
 
 ### Week 3 - DONE
-Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-P_h80Mxllpl8px9I0kCnYKUUrBwz3-bRW-A8E)).
+Continued to implement the prototype.
 
 #### Researched
  * Location/Condition/Actions
@@ -52,7 +52,7 @@ Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-
 * Fire Starting 
 
 ### Week 4 - DONE
-Continued to implement the prototype([.exe](https://mega.nz/file/aslgmaqI#rN6QM-P_h80Mxllpl8px9I0kCnYKUUrBwz3-bRW-A8E)).
+Continued to implement the prototype.
 
 #### Implemented
 * New Game
@@ -64,3 +64,25 @@ Started converting code to Kivy
 #### Implemented
 * Converted most code(Remaining Inventory and Fire)
 * Added GUI Components
+
+### Week 6 - DONE
+* Created an Inventory Template, found a way to make an Android APK
+
+#### Implemented
+* Item Sloths
+* Inventory Categories
+
+### Week 7 - DONE
+* Created exploration and a functional inventory with all items and their actions 
+
+#### Implemented
+* Throwing Items Away
+* Eating
+* Drinking
+* Bandaging
+* Cutting/Slicing to obtain new items
+* Hunger based Travel
+* Locations and their attributes, including resources
+* Randomized resource lists for each new location
+* Exploration of current location until the resource list is empty
+
