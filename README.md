@@ -10,7 +10,7 @@ An implementation of the mobile game [Survive](https://play.google.com/store/app
   * RPG
   * Crafting
 
-## Core Gameplay
+## Core Gameplay - [Download for Android](https://drive.google.com/file/d/17hWR_fhJWUXVsCTYsNLl4vXYGPhCv32P/view)
 &nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challanging, resource-scarce journey back to the main road, after getting lost
 in the woods on a rainy night. **Forage** for wood, berries, water and vines. **Hunt**, **fish**, **rest**, **cook** and **craft** campfires, weapons, traps, bandages and clothing insulators. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;**Travel**, take different turns and make **strategic** choices in order to reach civilization before it is too late. Balance **hunger, temperature, thirst, health** and inventory to avoid **starvation,
@@ -19,7 +19,7 @@ hypothermia, dehydration*** and **illness**. <br>
 
 <hr style="border:2px solid gray"> </hr>
 
-## Progress - [Download for Android](https://drive.google.com/file/d/14q6cspex24S4LCJ8ZLtwgT3KgBH3f19e/view?usp=sharing)
+## Progress - [Review Document](https://docs.google.com/document/d/18p3ZqKusjmE7E0jQpLz9sB5ZGjo3yPsahlz2MbFhpps/edit)
 
 ### Week 2
 Started a **Python/PyGame** prototype. 
@@ -85,4 +85,27 @@ Started converting code to Kivy
 * Locations and their attributes, including resources
 * Randomized resource lists for each new location
 * Exploration of current location until the resource list is empty
+
+### Week 8 - DONE
+* Cleaned up the code, removed bugs, added features
+
+#### Clean Up
+* Created new .py files
+* Separated screens
+* Separated .kv files
+* Added comments
+
+#### Bugs Removed
+* No more death on calorie deficit
+* No crash on empty inventory slot press
+
+#### New Features
+* Remade all loading/waiting/action screens
+* Added action result screens
+* Added wood getting
+* Cellphone has space=1
+* Weight became space
+* Fire screen item quantity labels added
+* Wood can be scraped to tinder
+* Status bars go below 0 without ruining value increase
 
