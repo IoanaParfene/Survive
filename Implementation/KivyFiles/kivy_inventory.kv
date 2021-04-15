@@ -1,0 +1,569 @@
+<InventoryScreen>:
+    FloatLayout:
+        Background:
+            id: background
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Label:
+            id: time_label
+            text:"12 HOURS OF DAYLIGHT REMAINING"
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.85}
+            size_hint: 0.33, 0.23
+
+        Label:
+            id: location_label
+            text:"PIKE LAKE | DAY 1 | 50 MILES LEFT"
+            font_size: self.height*0.14
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.02, "y": 0.79}
+            size_hint: 0.33, 0.23
+
+        ProgressBar:
+            id: my_inventory_capacity_bar
+            min: 0
+            max: 25
+            value: 0
+            background_color: 1, 0.3, 0.4, 0.85
+            pos_hint:{"x": 0.05, "y": 0.69}
+            size_hint: 0.25, 0.15
+            canvas:
+                BorderImage:
+                    border: (12, 12, 12, 12)
+                    pos: self.x, self.center_y - 12
+                    size: self.width, 24
+                    source: 'Images/white.png'
+                BorderImage:
+                    border: [int(min(self.width * (self.value / float(self.max)) if self.max else 0, 12))] * 4
+                    pos: self.x, self.center_y - 12
+                    size: self.width * (self.value / float(self.max)) if self.max else 0, 24
+                    source: 'Images/black.png'
+
+        Label:
+            id: inventory_label
+            text:"INVENTORY SPACE"
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.69}
+            size_hint: 0.25, 0.23
+
+        Label:
+            id: inventory_capacity_label
+            text:"100"
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.69}
+            size_hint: 0.25, 0.23
+
+        Button:
+            pos_hint:{"x": 0.85, "y": 0.045}
+            size_hint: 0.1, 0.08
+            font_size: self.height*0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "BACK"
+            on_release:
+                root.return_game_window()
+
+        Label:
+            id: calories_label
+            text:"CALORIES: 1100/3000"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.35
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.017}
+
+        ProgressBar:
+            id: my_condition_bar
+            min: 0
+            max: 100
+            value: 100
+            background_color: 1, 0.3, 0.4, 0.85
+            pos_hint:{"x": 0.05, "y": 0.25}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: condition_label
+            text:"CONDITION"
+            size_hint: 0.25, 0.23
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+
+        Label:
+            id: condition_label_value
+            text:"100"
+            size_hint: 0.25, 0.23
+            font_size:self.height*0.15
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.25}
+
+        ProgressBar:
+            id: my_heat_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.15}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: heat_label
+            text:"BODY HEAT"
+            size_hint: 0.25, 0.23
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+
+        Label:
+            id: heat_label_value
+            text:"100"
+            size_hint: 0.25, 0.23
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.155}
+
+        ProgressBar:
+            id: my_hydration_bar
+            min: 0
+            max: 100
+            value: 100
+            pos_hint:{"x": 0.05, "y": 0.05}
+            size_hint: 0.25, 0.15
+
+        Label:
+            id: hydration_label
+            text:"HYDRATION"
+            size_hint: 0.25, 0.23
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+
+        Label:
+            id: hydration_label_value
+            text:"100"
+            size_hint: 0.25, 0.23
+            font_size: self.height*0.15
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.055}
+
+        Button:
+            pos_hint:{"x": 0.36, "y": 0.865}
+            size_hint: 0.11, 0.08
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: self.height*0.6
+            text: "ALL"
+            on_release:
+                root.change_inventory_category("A")
+
+        Button:
+            pos_hint:{"x": 0.48, "y": 0.865}
+            size_hint: 0.11, 0.08
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: self.height*0.6
+            text: "WATER"
+            on_release:
+                root.change_inventory_category("Wa")
+
+        Button:
+            pos_hint:{"x": 0.6, "y": 0.865}
+            size_hint: 0.11, 0.08
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: self.height*0.6
+            text: "FOOD"
+            on_release:
+                root.change_inventory_category("Fo")
+
+        Button:
+            pos_hint:{"x": 0.72, "y": 0.865}
+            size_hint: 0.11, 0.08
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: self.height*0.6
+            text: "GEAR"
+            on_release:
+                root.change_inventory_category("G")
+
+        Button:
+            pos_hint:{"x": 0.84, "y": 0.865}
+            size_hint: 0.11, 0.08
+            background_color: 0.0, 0.0, 0.0, 1.0
+            font_size: self.height*0.6
+            text: "FIRE"
+            on_release:
+                root.change_inventory_category("Fi")
+
+        Inventory:
+            id: inventory
+            pos_hint:{"x": 0.361, "y": 0.16}
+            size_hint: 0.59, 0.69
+            canvas:
+                Color:
+                    rgba: 0.1, 0.1, 0.1, 1
+                Rectangle:
+                    size: self.width, self.height
+                    pos: self.pos
+
+
+        Button:
+            id: inv_slot_1
+            pos_hint:{"x": 0.36, "y": 0.72}
+            size_hint: 0.55, 0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.show_popup(root.ids.inv_item_1.text)
+
+        Label
+            id: inv_item_1
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.762}
+            size_hint: 0.48, 0.08
+
+        Label
+            id: inv_quantity_1
+            text:"6 REMAINING"
+            color: 1.5, 1.5, 1.5, 1.0
+            font_size: self.height*0.5
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.722}
+            size_hint: 0.48, 0.06
+
+        Label
+            id: inv_space_1
+            text:"0"
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.69, "y": 0.73}
+            size_hint: 0.2, 0.10
+
+        Button:
+            id: inv_slot_2
+            pos_hint:{"x": 0.36, "y": 0.581}
+            size_hint: 0.55, 0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.show_popup(root.ids.inv_item_2.text)
+
+        Label
+            id: inv_item_2
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.623}
+            size_hint: 0.48, 0.08
+
+        Label
+            id: inv_quantity_2
+            text:"6 REMAINING"
+            color: 1.5, 1.5, 1.5, 1.0
+            font_size: self.height*0.5
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.583}
+            size_hint: 0.48, 0.06
+
+        Label
+            id: inv_space_2
+            text:"0"
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.69, "y": 0.591}
+            size_hint: 0.2, 0.10
+
+        Button:
+            id: inv_slot_3
+            pos_hint:{"x": 0.36, "y": 0.440}
+            size_hint: 0.55, 0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.show_popup(root.ids.inv_item_3.text)
+
+        Label
+            id: inv_item_3
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.482}
+            size_hint: 0.48, 0.08
+
+        Label
+            id: inv_quantity_3
+            text:"6 REMAINING"
+            color: 1.5, 1.5, 1.5, 1.0
+            font_size: self.height*0.5
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.442}
+            size_hint: 0.48, 0.06
+
+        Label
+            id: inv_space_3
+            text:"0"
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.69, "y": 0.45}
+            size_hint: 0.2, 0.10
+
+        Button:
+            id: inv_slot_4
+            pos_hint:{"x": 0.36, "y": 0.299}
+            size_hint: 0.55, 0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.show_popup(root.ids.inv_item_4.text)
+
+        Label
+            id: inv_item_4
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.341}
+            size_hint: 0.48, 0.08
+
+        Label
+            id: inv_quantity_4
+            text:"6 REMAINING"
+            color: 1.5, 1.5, 1.5, 1.0
+            font_size: self.height*0.5
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.301}
+            size_hint: 0.48, 0.06
+
+        Label
+            id: inv_space_4
+            text:"0"
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.69, "y": 0.319}
+            size_hint: 0.2, 0.10
+
+        Button:
+            id: inv_slot_5
+            pos_hint:{"x": 0.36, "y": 0.159}
+            size_hint: 0.55, 0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.show_popup(root.ids.inv_item_5.text)
+
+        Label
+            id: inv_item_5
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.201}
+            size_hint: 0.48, 0.08
+
+        Label
+            id: inv_quantity_5
+            text:"6 REMAINING"
+            color: 1.5, 1.5, 1.5, 1.0
+            font_size: self.height*0.5
+            bold: True
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.375, "y": 0.161}
+            size_hint: 0.48, 0.06
+
+        Label
+            id: inv_space_5
+            text:"0"
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'right'
+            valign: 'middle'
+            pos_hint:{"x": 0.69, "y": 0.169}
+            size_hint: 0.2, 0.10
+
+        Button:
+            id: inv_up
+            pos_hint:{"x": 0.908, "y": 0.79}
+            size_hint: 0.0445, 0.06
+            text: "/\\"
+            bold: True
+            font_size: self.height*0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.scroll_inventory("up")
+
+        Button:
+            id: inv_down
+            pos_hint:{"x": 0.908, "y": 0.158}
+            size_hint: 0.0445, 0.06
+            text: "\\/"
+            bold: True
+            font_size: self.height*0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.scroll_inventory("down")
+
+<ItemDescription>:
+    Label:
+        id: item_quantity
+        text:""
+        pos_hint:{"x": 0.05, "y": 0.9}
+        size_hint: 0.3, 0.1
+        bold: True
+        halign: 'left'
+        valign: 'bottom'
+        font_size: self.height*0.4
+        text_size: self.size
+        color: 0.5,0.5,0.5,1.0
+    Label:
+        id: item_name
+        text:""
+        pos_hint:{"x": 0.05, "y": 0.79}
+        size_hint: 0.5, 0.1
+        halign: 'left'
+        bold: True
+        valign: 'top'
+        font_size: self.height*0.8
+        text_size: self.size
+        color: 1.0,1.0,1.0,1.0
+    Label:
+        id: item_description
+        text:""
+        pos_hint:{"x": 0.1, "y": 0.5}
+        size_hint: 0.8, 0.25
+        halign: 'left'
+        valign: 'top'
+        font_size: self.height*0.2
+        text_size: self.size
+        color: 2.0,2.0,2.0,1.0
+    Label:
+        id: item_space
+        text:""
+        pos_hint:{"x": 0.75, "y": 0.83}
+        size_hint: 0.19, 0.1
+        bold: True
+        halign: 'right'
+        valign: 'top'
+        font_size: self.height*0.5
+        text_size: self.size
+        color: 1.0,1.0,1.0,1.0
+
+    Button:
+        id: throw
+        text:"Throw"
+        pos_hint:{"x": 0.1, "y": root.my_throw_y}
+        size_hint: 0.17, 0.1
+        font_size: self.height*0.7
+        bold: True
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.size
+        background_color: 1.5,0.0,0.0,1.0
+        color: 0.2,0.0,0.0,1.0
+        on_release: root.throw(root.ids.item_name.text)
+
+    Button:
+        id: item_bar_action
+        text:""
+        pos_hint:{"x": 0.415, "y": root.my_bar_y}
+        size_hint: 0.17, 0.1
+        font_size: self.height*0.7
+        bold: True
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.size
+        background_color: 2.5,2.5,2.5,1.0
+        color: 0.0,0.0,0.0,1.0
+        on_release: root.bar_action(root.ids.item_name.text)
+
+    Button:
+        id: item_get_button
+        text:""
+        pos_hint:{"x": 0.1, "y": root.my_get_button_y}
+        size_hint: 0.17, 0.1
+        font_size: self.height*0.7
+        bold: True
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.size
+        background_color: 2.5,2.5,2.5,1.0
+        color: 0.0,0.0,0.0,1.0
+        on_release: root.get_action(root.ids.item_name.text)
+
+    Label:
+        id: item_get_label
+        text:""
+        pos_hint:{"x": 0.1, "y": root.my_get_label_y}
+        size_hint: 0.5, 0.08
+        bold: True
+        halign: 'left'
+        valign: 'top'
+        font_size: self.height*0.6
+        text_size: self.size
+        color: 0.6,0.6,0.6,1.0
+
+    Button:
+        text:"Back"
+        pos_hint:{"x": 0.73, "y": 0.1}
+        size_hint: 0.17, 0.1
+        font_size: self.height*0.7
+        bold: True
+        halign: 'center'
+        valign: 'middle'
+        text_size: self.size
+        background_color: 2.5,2.5,2.5,1.0
+        color: 0.0,0.0,0.0,1.0
+        on_release: root.dismiss_popup()

@@ -1,0 +1,32 @@
+<StartMenu>:
+    FloatLayout:
+
+        BackgroundStart:
+            id: background_start
+            canvas.before:
+                Rectangle:
+                    source: self.this_source
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            id: load_button
+            pos_hint:{"x": 0.67, "y": 0.29}
+            size_hint: 0.16, 0.1
+            font_size: self.height * 0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "LOAD"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.try_loading()
+
+
+        Button:
+            pos_hint:{"x": 0.67, "y": 0.17}
+            size_hint: 0.16, 0.1
+            font_size: self.height * 0.48
+            background_color: 0.0, 0.0, 0.0, 1.0
+            text: "NEW GAME"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.new_game()
