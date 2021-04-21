@@ -18,7 +18,6 @@
             on_release:
                 root.save_quit_window()
 
-
         Button:
             pos_hint:{"x": 0.385, "y": 0.75}
             size_hint: 0.25, 0.15
@@ -26,4 +25,4 @@
             background_color: 0.0, 0.0, 0.0, 1.0
             text: "RESUME"
             on_release:
-                root.return_game_window()
+                root.change_window("game")

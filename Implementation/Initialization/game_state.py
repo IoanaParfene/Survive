@@ -3,7 +3,7 @@ import copy
 
 
 class GameState:
-    def __init__(self, status_bars, inventory, first_location, first_travel_locations):
+    def __init__(self, status_bars, inventory, first_location, first_travel_locations, rain_duration):
         # Time related variables
         self.game_speed = copy.copy(cs.game_speed)
         # Start time of a new game_play
@@ -17,7 +17,7 @@ class GameState:
         # Game minutes that were skipped during actions
         self.skipped_time = copy.copy(cs.skipped_time)
         # Daylight or Darkness
-        self.current_day_period = copy.copy(cs.current_day_period)
+        self.daylight_now = copy.copy(cs.daylight_now)
         # In-game day
         self.current_game_day = copy.copy(cs.current_game_day)
         # No, Won or Lost
@@ -39,9 +39,22 @@ class GameState:
         # A dictionary of game locations and their attributes
         self.game_location_info = cs.game_location_info
         # Remaining miles to safety
-        self.remaining_miles = cs.remaining_miles
+        self.remaining_miles = copy.copy(cs.remaining_miles)
         # Inventory
         self.inventory = inventory
-
+        # True if the player has a shelter, False if not
+        self.shelter_complete = copy.copy(cs.shelter_complete)
+        # True if the player has a fire, False if not
+        self.fire_on = copy.copy(cs.fire_on)
+        # True if it is raining, False if not
+        self.raining_now = copy.copy(cs.raining_now)
+        # True if the player has basic clothing, False if not
+        self.clothing_on = copy.copy(cs.clothing_on)
+        # Current heat factor code
+        self.current_heat_factor_code = copy.copy(cs.current_heat_factor_code)
+        # Duration of the current rain session
+        self.rain_related_duration = rain_duration
+        # Start rain time
+        self.start_rain_related_time = copy.copy(cs.game_time) + self.skipped_time
 
 

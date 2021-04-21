@@ -16,11 +16,9 @@ def initialize_status_bars():
                        "Hydration": sb.StatusBar("Hydration", 100, 100)}
     # Almost identical with the actual game_time
     game_time = time.time()
-    # Add initial calorie and hydration decay
-    new_status_bars["Hydration"].add_decay_factor(1, 25, game_time)
-    new_status_bars["Calories"].add_decay_factor(1, 6, game_time)
-    new_status_bars["Body Heat"].add_decay_factor(1, 30, game_time)
-    new_status_bars["Condition"].add_decay_factor(1, 50, game_time)
+    # Add initial calorie and hydration fluctuation
+    new_status_bars["Hydration"].add_fluctuation_factor(1 / 30, 1, game_time)
+    new_status_bars["Calories"].add_fluctuation_factor(1 / 3, 1, game_time)
     return new_status_bars
 
 
@@ -45,14 +43,14 @@ def initialize_inventory():
     inventory.items["water_bottle_safe"]["Quantity"] = 1.0
     inventory.items["empty_bottle"]["Quantity"] = 1.0
     # Environmental Aids
-    inventory.items["area_map"]["Quantity"] = 1.0 # Tell remaining Miles
-    inventory.items["basic_clothes"]["Quantity"] = 1.0 # Keep Warm
-    inventory.items["trash_bag"]["Quantity"] = 1.0 # Collect Water
-    inventory.items["dry_sack"]["Quantity"] = 1.0 # Inventory
+    inventory.items["area_map"]["Quantity"] = 1.0  # Tell remaining Miles
+    inventory.items["basic_clothes"]["Quantity"] = 1.0  # Keep Warm
+    inventory.items["trash_bag"]["Quantity"] = 1.0  # Collect Water
+    inventory.items["dry_sack"]["Quantity"] = 1.0  # Inventory
     inventory.items["utility_belt_bag"]["Quantity"] = 1.0  # Inventory 6
-    inventory.items["knife"]["Quantity"] = 1.0 # Everything
-    inventory.items["empty_can"]["Quantity"] = 1.0 # Cooking
-    inventory.items["broken_cellphone"]["Quantity"] = 1.0 # Waste Space
+    inventory.items["knife"]["Quantity"] = 1.0  # Everything
+    inventory.items["empty_can"]["Quantity"] = 1.0  # Cooking
+    inventory.items["broken_cellphone"]["Quantity"] = 1.0  # Waste Space
     # Gear
     inventory.items["bait"]["Quantity"] = 4.0
     inventory.items["rope"]["Quantity"] = 2.0
@@ -62,7 +60,6 @@ def initialize_inventory():
     inventory.items["piece_of_cloth"]["Quantity"] = 1.0
     # Fire
     inventory.items["matches"]["Quantity"] = 6.0
-
     return inventory
 
 
@@ -75,17 +72,21 @@ def initialize_game_state():
     # Initialize inventory
     inventory = initialize_inventory()
 
-    # Initialize first
+    # Initialize first location
     first_location = env.randomize_location_info("pike_lake")
+
+    # Initialize rain
+    rain_duration = random.randint(5, 24)
 
     # Initialize next_locations
     first_travel_locations = [env.randomize_location_info(random.choice(list(cs.game_locations.keys())[1:])),
                               env.randomize_location_info(random.choice(list(cs.game_locations.keys())[1:]))]
 
     # Game_state object
-    game_state = gs.GameState(status_bars, inventory, first_location, first_travel_locations)
+    game_state_initialization = gs.GameState(status_bars, inventory, first_location, first_travel_locations,
+                                             rain_duration)
 
-    return game_state
+    return game_state_initialization
 
 
 game_state = initialize_game_state()

@@ -1,4 +1,3 @@
-from Initialization import initialization as init
 from GameLoopManagement import widget_update_functions as wuf
 from Gameplay import game_play_functions as gpf
 from Screens import screens as sc
@@ -28,8 +27,12 @@ def game_loop():
             wuf.check_for_game_over_screen(screen_type)
             # Update game time once per frame
             gpf.update_game_time()
+            # Update rain
+            gpf.update_rain()
             # Update the inventory once per frame
             gpf.update_inventory()
+            # Update fluctuation factor based on location, day time, fire, weather
+            gpf.update_heat_fluctuation_factor(gpf.get_fluctuation_code())
             # Update status_bars
             gpf.update_status_bars()
         # Update time and location labels
@@ -37,7 +40,9 @@ def game_loop():
         # Update status bars and labels
         wuf.update_status_bar_labels(screen_type)
         # Change background
-        wuf.change_background(screen_type)
+        wuf.update_background_widget(screen_type)
+        # Show or hide rain animation
+        wuf.update_rain_widget(screen_type)
 
     if sc.sm.current == "start":
         pass

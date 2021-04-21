@@ -1,63 +1,20 @@
 from Initialization import initialization as init
 from Gameplay import game_play_functions as gpf
 from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import StringProperty
 from Initialization import constants as cs
-from kivy.uix.screenmanager import Screen
 from kivy.uix.modalview import ModalView
-from kivy.uix.widget import Widget
+from Screens import GUI_classes as gui
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivymd.app import MDApp
-from kivy.clock import Clock
 import random
 
 
-class ActionTime(ModalView):
-
-    def __init__(self, text, **kwargs):
-        super(ActionTime, self).__init__(**kwargs)
-
-        # Set the specific text for the action
-        self.ids.action_time_label.text = text
-        # Call dismiss_view after one second
-        Clock.schedule_once(self.dismiss_view, 1)
-
-    def dismiss_view(self, dt):
-        self.dismiss()
-
-
-class GameWindow(Screen):
-
-
-    class Background(Widget):
-        """ Class for changing the background during the day """
-
-        # The path to background image
-        this_source = StringProperty("Images/night.png")
-
-        def change_background(self, *args):
-            """ Change background after the day period """
-            # Total game hours that have passed
-            game_hours = init.game_state.game_time / 60
-            # The current day of the game
-            init.game_state.current_game_day = int(game_hours / 24 + 1)
-            # Game hours that have passed in the current day
-            game_hours_today = game_hours % 24
-
-            # Change background image path based on the time of the current day
-            if game_hours_today < 2:
-                self.this_source = "Images/dawn.png"
-            if game_hours_today < 7:
-                self.this_source = "Images/orange.png"
-            elif game_hours_today < 10:
-                self.this_source = "Images/purple.png"
-            elif game_hours_today < 12:
-                self.this_source = "Images/sunset.png"
-            else:
-                self.this_source = "Images/night.png"
+class GameWindow(gui.BaseGameplayScreen):
+    """ Screen for the gameplay menu """
 
     def on_enter(self):
+        """ Called when entering the screen """
         # Don't allow getting wood at Pike Lake
         if init.game_state.current_location["Name"] == "Pike Lake":
             MDApp.get_running_app().root.get_screen("game").ids.wood_button.disabled = True
@@ -78,7 +35,7 @@ class GameWindow(Screen):
         """ Explore action implementation"""
 
         # Randomize a number of items to find during the current exploration
-        found_items = random.choices([1,2], weights=(70,30), k=1)[0]
+        found_items = random.choices([1, 2], weights=(70, 30), k=1)[0]
 
         # Prepare action result text
         text = "You explored for one hour and found:"
@@ -104,28 +61,25 @@ class GameWindow(Screen):
 
         # Pass one game hour if any items were found and change the action result text
         if items_were_found:
-            # Pass one game hour
+            # Add the lost second for the loading screen
             init.game_state.paused_time += 1
-            init.game_state.skipped_time += 60
-            # Decay 50 calories for the hour spent exploring
-            gpf.immediate_status_bar_decay("Calories", 50)
+            # Update the status bars during the special action
+            gpf.update_bars_during_action(1, ["f", "s"])
         else:
             text = "There is nothing left to explore.."
         # Clean the text
         text = text[:-1]
 
         # Add a popup displaying the action result text
-        view = ModalView(pos_hint={"x": 0.0,"y":0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
-        layout = FloatLayout(pos_hint={"x": 0.0,"y":0.0}, size_hint=(1.0, 1.0))
-        layout.add_widget(Label(text=text, pos_hint={"x": 0.1,"y":0.4}, size_hint=(0.8, 0.5),
-                              font_size=self.height*0.1, text_size=self.size, halign='center', valign='middle'))
+        view = ModalView(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
+        layout = FloatLayout(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0))
+        layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
+                                font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
         layout.add_widget(Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
                                  background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
                                  color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
         view.add_widget(layout)
         view.open()
-
-
 
     def get_wood(self):
         """ Get wood action implementation """
@@ -143,11 +97,15 @@ class GameWindow(Screen):
         # Clean the text
         text = text[:-1]
 
-        # Pass one game hour
+        # Add the lost second for the loading screen
         init.game_state.paused_time += 1
-        init.game_state.skipped_time += 60
+        # Update the status bars during the special action
+        gpf.update_bars_during_action(1, ["f", "s"])
+
         # Decay 50 calories for the hour spent getting wood
-        gpf.immediate_status_bar_decay("Calories", 50)
+        gpf.immediate_status_bar_decay("Calories", 60)
+        # Decay 7 hydration for the hour spent getting wood
+        gpf.immediate_status_bar_decay("Hydration", 7)
 
         # Add the wood to the inventory
         init.game_state.inventory.items["wood"]["Quantity"] += found_wood_logs
@@ -159,9 +117,9 @@ class GameWindow(Screen):
         view = ModalView(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
         layout = FloatLayout(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0))
         layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
-                                    font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
+                                font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
         layout.add_widget(Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
-                       background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
-                       color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
+                                 background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
+                                 color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
         view.add_widget(layout)
         view.open()

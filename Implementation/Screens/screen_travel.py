@@ -1,70 +1,26 @@
-from Gameplay import file_functions as ff, game_play_functions as gpf
-from kivy.properties import StringProperty, NumericProperty
 from Initialization import initialization as init
+from Gameplay import game_play_functions as gpf
 from Initialization import environment as env
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.screenmanager import Screen
 from kivy.uix.modalview import ModalView
-from kivy.uix.widget import Widget
+from Screens import GUI_classes as gui
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivymd.app import MDApp
-from kivy.clock import Clock
 import random
 
 
-
-class ActionTime(ModalView):
-
-    def __init__(self, text, **kwargs):
-        super(ActionTime, self).__init__(**kwargs)
-
-        # Set the specific text for the action
-        self.ids.action_time_label.text = text
-        # Call dismiss_view after one second
-        Clock.schedule_once(self.dismiss_view, 1)
-
-    def dismiss_view(self, dt):
-        self.dismiss()
-
-
-class TravelScreen(Screen):
-
-    class Background(Widget):
-        """ Class for changing the background during the day """
-
-        # The path to background image
-        this_source = StringProperty("Images/night.png")
-
-        def change_background(self, *args):
-            """ Change background after the day period """
-            # Total game hours that have passed
-            game_hours = init.game_state.game_time / 60
-            # The current day of the game
-            init.game_state.current_game_day = int(game_hours / 24 + 1)
-            # Game hours that have passed in the current day
-            game_hours_today = game_hours % 24
-
-            # Change background image path based on the time of the current day
-            if game_hours_today < 2:
-                self.this_source = "Images/dawn.png"
-            if game_hours_today < 7:
-                self.this_source = "Images/orange.png"
-            elif game_hours_today < 10:
-                self.this_source = "Images/purple.png"
-            elif game_hours_today < 12:
-                self.this_source = "Images/sunset.png"
-            else:
-                self.this_source = "Images/night.png"
-
+class TravelScreen(gui.BaseGameplayScreen):
+    """ Screen for the travel menu """
 
     def travel(self, travel_path):
         """ Travel to a new chosen location"""
+        # Get the new location data
         name, miles, duration = init.game_state.travel_next[travel_path]["Name"], init.game_state.travel_next[travel_path]["Miles"], \
                                 init.game_state.travel_next[travel_path]["Duration"]
+        # Add two extra hours to the travel time if the layer is too hungry
         if init.game_state.status_bars["Calories"].current_value < 400:
             duration += 2
-
+        # Update the action description label text
         text = "Walked for " + str(duration) + " hours and reached " + name + "."
 
         # Add a popup displaying the action result text
@@ -78,21 +34,25 @@ class TravelScreen(Screen):
         view.add_widget(layout)
         view.open()
 
+        # Add the lost second for the loading screen
         init.game_state.paused_time += 1
-        init.game_state.skipped_time += duration * 60
+
+        # Update the status bars during the action
+        gpf.update_bars_during_action(duration, ["f", "s"])
+
+        # Check if the player won the ga,e
         if init.game_state.remaining_miles - miles <= 0:
             init.game_state.game_over = "Won"
         else:
             init.game_state.remaining_miles -= miles
 
-        gpf.immediate_status_bar_decay("Calories", duration*50)
+        # Remove the calories spent traveling
+        gpf.immediate_status_bar_decay("Calories", duration*60)
+
+        # Set the shelter making progress to 0
+        init.game_state.shelter_complete = False
+
+        # Randomize the two new location for the next travel
         init.game_state.current_location = init.game_state.travel_next[travel_path]
         init.game_state.travel_next = [env.randomize_location_info(random.choice(list(init.game_state.game_locations.keys())[1:])),
                                        env.randomize_location_info(random.choice(list(init.game_state.game_locations.keys())[1:]))]
-
-    def return_game_window(self, *args):
-        MDApp.get_running_app().root.current = "game"
-
-    def change_window(self, new_current_window):
-        MDApp.get_running_app().root.current = new_current_window
-

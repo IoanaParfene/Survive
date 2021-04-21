@@ -1,9 +1,9 @@
 from GameLoopManagement import text_update_functions as tuf
 from Initialization import initialization as init
+from Gameplay import game_play_functions as gpf
 from Initialization import constants as cs
+from Gameplay import file_functions as ff
 from Screens import screens as sc
-from kivy.uix.label import Label
-from Gameplay import file_functions as ff, game_play_functions as gpf
 
 
 def enable_load_button():
@@ -41,18 +41,23 @@ def update_status_bar_labels(screen_type):
         if status_bar_name != "Calories":
             bar_value = tuf.status_bar_value_update(status_bar_name)
             bar = eval("sc.sm.get_screen(screen_type).ids.my_" + status_bar_name.split(" ", 1)[-1].lower() + '_bar')
-            bar.value = bar_value
+            bar.value = int(bar_value)
             label = eval(
                 "sc.sm.get_screen(screen_type).ids." + status_bar_name.split(" ", 1)[-1].lower() + '_label_value')
-            label.text = str(bar_value)
+            label.text = str(int(bar_value))
     # Calories status bar update
     calories = tuf.status_bar_value_update("Calories")
-    sc.sm.get_screen(screen_type).ids.calories_label.text = "CALORIES: " + str(calories) + "/3000"
+    sc.sm.get_screen(screen_type).ids.calories_label.text = "CALORIES: " + str(int(calories)) + "/3000"
 
 
-def change_background(screen_type):
+def update_background_widget(screen_type):
     """ Change background after the time of day """
     sc.sm.get_screen(screen_type).ids.background.change_background()
+
+
+def update_rain_widget(screen_type):
+    """ Change rain animation position """
+    sc.sm.get_screen(screen_type).rain.show_rain()
 
 
 def update_inventory_widgets():

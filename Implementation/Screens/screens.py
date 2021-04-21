@@ -12,6 +12,7 @@ from Screens.screen_fire import FireScreen
 from kivy.lang import Builder
 
 # Build Kivy files
+Builder.load_file('KivyFiles/GUI_widgets.kv')
 Builder.load_file('KivyFiles/kivy_crafting.kv')
 Builder.load_file('KivyFiles/kivy_fire.kv')
 Builder.load_file('KivyFiles/kivy_game.kv')

@@ -1,19 +1,18 @@
 from Initialization import initialization as init
+from Gameplay import game_play_functions as gpf
 from Initialization import constants as cs
 
 
 def game_time_description_update():
     """ Get current player time on label text"""
     # Get remaining hours in time of day
-    game_hours = init.game_state.game_time / 60
-    init.game_state.current_game_day = int(game_hours / 24 + 1)
-    game_hours_today = game_hours % 24
+    game_hours_today = gpf.get_current_game_day_hours()
     if game_hours_today < 12:
-        init.game_state.current_day_period = "DAYLIGHT"
+        day_period = "DAYLIGHT"
     else:
-        init.game_state.current_day_period = "DARKNESS"
+        day_period = "DARKNESS"
     time_information = str(
-        int(12 - game_hours_today % 12) + 1) + " HOURS OF " + init.game_state.current_day_period + " REMAINING"
+        int(12 - game_hours_today % 12) + 1) + " HOURS OF " + day_period + " REMAINING"
     return time_information
 
 
@@ -46,7 +45,7 @@ def get_next_travel_location_text(location_index):
     else:
         text = name.upper() + " | " + str(miles) + " MILES | " + str(hours) + "-" + str(hours + 1) + " HOURS"
     # If it is dark outside, hide the next location info
-    if init.game_state.current_day_period == "DARKNESS":
+    if not init.game_state.daylight_now:
         text = "???"
     return text
 
