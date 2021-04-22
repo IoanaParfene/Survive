@@ -123,3 +123,11 @@ class GameWindow(gui.BaseGameplayScreen):
                                  color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
         view.add_widget(layout)
         view.open()
+
+    def get_water(self):
+        """ Collect dirty or clean water in water bottles """
+        if init.game_state.rain_water_uses > 0:
+            init.game_state.inventory.items["water_bottle_safe"]["Quantity"] += init.game_state.inventory.items["empty_bottle"]["Quantity"]
+            init.game_state.inventory.items["empty_bottle"]["Quantity"] = 0
+            init.game_state.inventory.items["empty_bottle"]["Quantity"] = 0
+            init.game_state.rain_water_uses -= 1
