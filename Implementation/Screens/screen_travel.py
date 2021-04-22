@@ -29,8 +29,8 @@ class TravelScreen(gui.BaseGameplayScreen):
         layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
                                     font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
         layout.add_widget(Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
-                       background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
-                       color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
+                                           background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
+                                           color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
         view.add_widget(layout)
         view.open()
 
@@ -51,6 +51,9 @@ class TravelScreen(gui.BaseGameplayScreen):
 
         # Set the shelter making progress to 0
         init.game_state.shelter_complete = False
+
+        # Take the trash bag from the raincatcher
+        init.game_state.rain_catcher_exists = False
 
         # Randomize the two new location for the next travel
         init.game_state.current_location = init.game_state.travel_next[travel_path]

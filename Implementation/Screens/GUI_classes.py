@@ -1,10 +1,14 @@
 from kivy.properties import StringProperty, NumericProperty
+from kivy.uix.floatlayout import FloatLayout
+
 from Initialization import initialization as init
 from kivy.uix.screenmanager import Screen
 from kivy.uix.modalview import ModalView
 from kivy.uix.widget import Widget
+from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivymd.app import MDApp
+
 
 
 class Background(Widget):
@@ -66,9 +70,48 @@ class Rain(Widget):
 
 
 class BaseGameplayScreen(Screen):
+    """ Base class for gameplay menu screens """
 
+    # Background animation object
     background = Background()
+    # Rain animation object
     rain = Rain()
 
     def change_window(self, new_current_window):
+        """ Screen changing method """
         MDApp.get_running_app().root.current = new_current_window
+
+
+class DescriptionLabel(FloatLayout):
+    """ Universal label for displaying a message on the screen """
+
+    # Position coordinates of the label
+    pos_x = NumericProperty(-500)
+    pos_y = NumericProperty(-500)
+
+    # Size of the label
+    size_x = NumericProperty(-500)
+    size_y = NumericProperty(-500)
+
+    # Size scale
+    scale = NumericProperty(-500)
+
+    def __init__(self, text, pos_x, pos_y, size_x, size_y, h_align, v_align, scale, **kwargs):
+        super(DescriptionLabel, self).__init__(**kwargs)
+        # Set the specific text for the label
+        self.text = text
+        # Set the position of the label
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        # Set the size of the label
+        self.size_x = size_x
+        self.size_y = size_y
+        # Set alignments
+        self.halign = h_align
+        self.valign = v_align
+        self.scale = scale
+
+    def dismiss_view(self, dt):
+        """ Label deleting method """
+        self.dismiss()
+

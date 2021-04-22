@@ -8,6 +8,8 @@ skipped_time = 300
 save_time = 0
 rain_related_duration = 0
 start_rain_related_time = 0
+start_fire_time = 0
+fire_duration = 0
 time_is_stopped = True
 
 # Environment information
@@ -69,7 +71,7 @@ inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "
                     "broken_cellphone": {"Name": "Broken Cellphone", "Weight": 1.0, "Categories": ["A","G"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Would be the most important survival item, except the screen is completely black. Smart phones..."},
                     "duct_tape": {"Name": "Duct Tape", "Weight": 0.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Braid": ["rope"]}, "BarActions": None, "Description": "Pretty much the best stuff on earth. I think i can CRAFT many things with this."},
                     "flashlight": {"Name": "Flashlight", "Weight": 2.0, "Categories": ["A","G"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "A portable electric light source. Water resistant. Some battery remaining."},
-                    "knife": {"Name": "Knife", "Weight": 0.0, "Categories": ["A","G"], "Throw": False, "GetActions": {"Braid": ["rope"]}, "BarActions": None, "Description": "Carbon Steel blade. Handle made of stained birch. Essential for survival."},
+                    "knife": {"Name": "Knife", "Weight": 0.0, "Categories": ["A","G"], "Throw": False, "GetActions": None, "BarActions": None, "Description": "Carbon Steel blade. Handle made of stained birch. Essential for survival."},
                     "first_aid_kit": {"Name": "First Aid Kit", "Weight": 2.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Open": ["first_aid_manual","bandages","bandages","pouch"]}, "BarActions": None, "Description": "A small first aid kit with bandages for treating wounds."},
                     "newspaper": {"Name": "Newspaper", "Weight": 1.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Tear": ["tinder","tinder"]}, "BarActions": None, "Description": "Well, it's a newspaper."},
                     "utility_belt_bag": {"Name": "Utility Belt Bag", "Weight": 0.0, "Categories": ["A","G"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "A waist belt that has room for some gear."},
@@ -101,4 +103,9 @@ heat_factor_fluctuation = {"srdcf": 0.0, "snrdcf": 0.0, "srndcf": 0.0, "srdncf":
 heat_factor_names = ["shelter_complete", "raining_now", "daylight_now", "clothing_on", "fire_on"]
 # Start heat factor code = nsrdcf
 current_heat_factor_code = None
+
+# Food and water
+rain_water = 0
+rain_water_uses = 0
+rain_catcher_exists = False
 

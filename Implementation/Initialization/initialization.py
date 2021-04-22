@@ -60,6 +60,7 @@ def initialize_inventory():
     inventory.items["piece_of_cloth"]["Quantity"] = 1.0
     # Fire
     inventory.items["matches"]["Quantity"] = 6.0
+    inventory.items["tinder"]["Quantity"] = 2.0
     return inventory
 
 

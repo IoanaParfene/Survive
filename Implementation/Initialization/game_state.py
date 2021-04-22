@@ -46,6 +46,10 @@ class GameState:
         self.shelter_complete = copy.copy(cs.shelter_complete)
         # True if the player has a fire, False if not
         self.fire_on = copy.copy(cs.fire_on)
+        # Start fire time
+        self.start_fire_time = copy.copy(cs.fire_on)
+        # Duration of the current fire session
+        self.fire_duration = copy.copy(cs.fire_duration)
         # True if it is raining, False if not
         self.raining_now = copy.copy(cs.raining_now)
         # True if the player has basic clothing, False if not
@@ -56,5 +60,11 @@ class GameState:
         self.rain_related_duration = rain_duration
         # Start rain time
         self.start_rain_related_time = copy.copy(cs.game_time) + self.skipped_time
+        # Rain water
+        self.rain_water = copy.copy(cs.rain_water)
+        # Rain water
+        self.rain_water_uses = copy.copy(cs.rain_water_uses)
+        # Boolean for the existence of the raincatcher
+        self.rain_catcher_exists = copy.copy(cs.rain_catcher_exists)
 
 

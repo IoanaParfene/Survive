@@ -23,9 +23,12 @@
                 Factory.ActionTime("Sleeping...").open()
 
         Button:
-            pos_hint:{"x": 0.4, "y": -5000}
-            size_hint: 0.2, 0.2
+            id: rain_catcher_button
+            pos_hint:{"x": 0.4, "y": 0.3}
+            size_hint: 0.4, 0.2
             font_size: self.height*0.3
             background_color: 0.0, 0.0, 0.0, 1.0
             disabled: True
             text: "BUILD RAINCATCHER"
+            on_release:
+                root.build_raincatcher()

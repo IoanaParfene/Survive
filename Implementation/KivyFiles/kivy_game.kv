@@ -25,13 +25,15 @@
                 root.change_window("fire")
 
         Button:
+            id: water_collecting
             pos_hint:{"x": 0.78, "y": 0.61}
             size_hint: 0.17, 0.23
             background_color: 0.0, 0.0, 0.0, 1.0
             disabled: True
             text: "GET WATER"
             font_size: self.height*0.2
-
+            on_release:
+                root.get_water()
 
         Button:
             id: wood_button
