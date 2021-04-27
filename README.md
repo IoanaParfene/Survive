@@ -10,7 +10,7 @@ An implementation of the mobile game [Survive](https://play.google.com/store/app
   * RPG
   * Crafting
 
-## Core Gameplay - [Download for Android](https://drive.google.com/file/d/17hWR_fhJWUXVsCTYsNLl4vXYGPhCv32P/view)
+## Core Gameplay - [Download for Android](https://drive.google.com/file/d/17hWR_fhJWUXVsCTYsNLl4vXYGPhCv32P/view?usp=sharing)
 &nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challanging, resource-scarce journey back to the main road, after getting lost
 in the woods on a rainy night. **Forage** for wood, berries, water and vines. **Hunt**, **fish**, **rest**, **cook** and **craft** campfires, weapons, traps, bandages and clothing insulators. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;**Travel**, take different turns and make **strategic** choices in order to reach civilization before it is too late. Balance **hunger, temperature, thirst, health** and inventory to avoid **starvation,
@@ -108,4 +108,32 @@ Started converting code to Kivy
 * Fire screen item quantity labels added
 * Wood can be scraped to tinder
 * Status bars go below 0 without ruining value increase
+
+### Week 9 - DONE
+* Cleaned up the code, removed bugs, added features
+
+#### New Features
+* Heat decay based on: clothing, day/night, fire, rain, shelter
+* Added rain
+* Added a rain catcher
+* Added water collecting
+
+### Week 10 - DONE
+* Cleaned up the code, removed bugs, added features
+
+#### Bugs Removed
+* Fixed raincatcher bug that allows bringing trash bag water to new location
+* No crash on a specific heat code
+
+#### New Features
+* Implemented space adding items
+* Boil Water
+* Collect dirty water
+* Area map destruction removes knowledge of remaining miles
+* Dirty water removes condition
+* Water bottles can be poured out
+* Flashlight allows seeing direction, exploration and getting wood at night
+* Nightime stops player from exploring and getting wood 8/10 times
+* Exceeding inventory blocks player from travelling
+* Building a rain catcher takes 15 minutes
 
