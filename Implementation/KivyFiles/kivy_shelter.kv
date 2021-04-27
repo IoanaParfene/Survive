@@ -31,4 +31,5 @@
             disabled: True
             text: "BUILD RAINCATCHER"
             on_release:
-                root.build_raincatcher()
+                root.build_raincatcher(0.25)
+                Factory.ActionTime("Building...").open()

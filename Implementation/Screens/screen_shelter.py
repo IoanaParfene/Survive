@@ -18,6 +18,12 @@ class ShelterScreen(gui.BaseGameplayScreen):
         else:
             init.game_state.status_bars["Condition"].current_value += hours * 4
 
-    def build_raincatcher(self):
+    def build_raincatcher(self, hours):
         """ Build raincatcher from a plastic bag"""
+        # Add the lost second for the loading screen
+        init.game_state.paused_time += 1
+        # Update the status bars during the special action
+        gpf.update_bars_during_action(hours, [])
+        # Add rain catcher existence to the game-state object
         init.game_state.rain_catcher_exists = True
+        self.show_popup("I built a rain catcher. It took 15 minutes.")

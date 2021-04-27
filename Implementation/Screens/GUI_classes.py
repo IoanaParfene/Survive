@@ -1,14 +1,13 @@
 from kivy.properties import StringProperty, NumericProperty
-from kivy.uix.floatlayout import FloatLayout
-
 from Initialization import initialization as init
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import Screen
 from kivy.uix.modalview import ModalView
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivymd.app import MDApp
-
 
 
 class Background(Widget):
@@ -81,6 +80,18 @@ class BaseGameplayScreen(Screen):
         """ Screen changing method """
         MDApp.get_running_app().root.current = new_current_window
 
+    def show_popup(self, text):
+        """ Show a pop-up with a given text """
+        view = ModalView(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
+        layout = FloatLayout(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0))
+        layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
+                                font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
+        layout.add_widget(Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
+                                 background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
+                                 color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
+        view.add_widget(layout)
+        view.open()
+
 
 class DescriptionLabel(FloatLayout):
     """ Universal label for displaying a message on the screen """
@@ -114,4 +125,3 @@ class DescriptionLabel(FloatLayout):
     def dismiss_view(self, dt):
         """ Label deleting method """
         self.dismiss()
-

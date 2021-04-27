@@ -11,7 +11,7 @@
             text: "TRAVEL 1"
             on_release:
                 root.travel(0)
-                Factory.ActionTime("Walking...").open()
+                if root.light_inventory: Factory.ActionTime("Walking...").open()
 
         Button:
             id: travel_2
@@ -22,4 +22,4 @@
             text: "TRAVEL 2"
             on_release:
                 root.travel(1)
-                Factory.ActionTime("Walking...").open()
+                if root.light_inventory: Factory.ActionTime("Walking...").open()

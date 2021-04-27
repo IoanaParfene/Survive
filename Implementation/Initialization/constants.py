@@ -16,6 +16,7 @@ time_is_stopped = True
 current_game_day = 1
 daylight_now = True
 current_weather = "rain"
+initial_miles = 30
 remaining_miles = 30
 shelter_complete = True
 raining_now = True
@@ -37,17 +38,20 @@ game_location_info = {"pike_lake": {"Name": "Pike Lake", "Miles": 3, "Duration":
                       "path": {"Name": "Path", "Miles": 3, "Duration": 3, "Water Source": False, "Explorables": (9, [("maggots", 29), ("crickets", 33), ("cattail_plant", 24), ("edible_berries",14)])},
                       "woodland": {"Name": "Woodland", "Miles": 2, "Duration": 3, "Water Source": False, "Explorables": (7, [("maggots", 38), ("crickets", 28), ("cattail_plant", 28), ("edible_berries",6)])}
                       }
+water_locations = ["pike_lake", "flooded_area"]
 
 # Inventory variables
 max_inventory_capacity = 25
+base_inventory_capacity = 6
 current_inventory_capacity = 0
 inventory_display_category = "A"
 inventory_display_page = 0
+space_boosters = [("dry_sack", 7), ("utility_belt_bag", 6)]
 inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "Fi"], "Throw": True, "GetActions": {"Shave": ["tinder"]}, "BarActions": None, "Description": "Wood. Burns nicely and can be used to craft different tools."},
                     "area_map": {"Name": "Area Map", "Weight": 0.0, "Categories": ["A","G","Fi"], "Throw": True, "GetActions": {"Tear": ["tinder"]}, "BarActions": None, "Description": "I can get a rough idea how far I'm from safety."},
                     "empty_bottle": {"Name": "Empty Bottle", "Weight": 1.0, "Categories": ["A","Wa"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Plastic bottle. Empty. I gotta fill this somehow."},
-                    "water_bottle_safe": {"Name": "Safe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Hydration", 25.0)]}, "Description": "Plastic bottle. Full of portable water."},
-                    "water_bottle_unsafe": {"Name": "Unsafe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": None, "BarActions": {"Drink": [("Hydration", 25.0), ("Condition",-30.0)]}, "Description": "Plastic bottle. Full of unsafe water. It looks quite clean but I should purify this somehow."},
+                    "water_bottle_safe": {"Name": "Safe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": {"Pour": ["empty_bottle"]}, "BarActions": {"Drink": [("Hydration", 25.0)]}, "Description": "Plastic bottle. Full of portable water."},
+                    "water_bottle_unsafe": {"Name": "Unsafe Water Bottle", "Weight": 2.0, "Categories": ["A","Wa"], "Throw": False, "GetActions": {"Pour": ["empty_bottle"]}, "BarActions": {"Drink": [("Hydration", 25.0)]}, "Description": "Plastic bottle. Full of unsafe water. It looks quite clean but I should purify this somehow."},
                     "energy_bar": {"Name": "Energy Bar", "Weight": 0.0, "Categories": ["A","Fo"], "Throw": False, "GetActions": {"Slice": ["bait","bait"]}, "BarActions": {"Eat": [("Calories", 150.0)]}, "Description": "Supplemental bar containing high energy food. Perfect for people that need a quick energy boost. Calories 150."},
                     "tinder": {"Name": "Tinder", "Weight": 0.34, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Combustible material that will ignite with a small spark. Any kind of dry fluffy stuff will do."},
                     "hardwood": {"Name": "Hardwood", "Weight": 4.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Split": ["wood","wood"]}, "BarActions": None, "Description": "Dense wood. Burns long and can be used for crafting."},
@@ -96,7 +100,7 @@ heat_factor_fluctuation = {"srdcf": 0.0, "snrdcf": 0.0, "srndcf": 0.0, "srdncf":
                       "snrdncf": 0.0, "snrdcnf": 0.0, "srndncf": 0.0, "srndcnf": 0.0, "srdncnf": 0.0, "snrndncf": 0.0,
                       "snrndcnf": 0.0, "snrdncnf":0.0, "srndncnf": 0.0, "snrndncnf": 0.0,
                       "nsrdcf": -2.0, "nsnrdcf": 30.0, "nsrndcf": -3.0, "nsrdncf": -4.5, "nsrdcnf": -3.5,
-                      "nsnrndfc": 25.0, "nsnrdncf": 28.0, "nsnrdcnf": 0.5, "nsrndncf": -4.5, "nsrndcnf": -8.0,
+                      "nsnrndcf": 25.0, "nsnrdncf": 28.0, "nsnrdcnf": 0.5, "nsrndncf": -4.5, "nsrndcnf": -8.0,
                       "nsrdncnf": -6.0, "nsnrndncf": 23.0, "nsnrndcnf": -4.5, "nsnrdncnf": 0.0, "nsrndncnf": -9.5,
                       "nsnrndncnf": -6.0,
                      }

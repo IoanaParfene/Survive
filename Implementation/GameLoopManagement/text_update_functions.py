@@ -18,9 +18,14 @@ def game_time_description_update():
 
 def get_progress_description_update():
     """ Get current location, day and miles left label text"""
+
     game_progress = init.game_state.current_location["Name"].upper() + " | DAY " + \
-                    str(init.game_state.current_game_day).upper() + " | " + \
-                    str(init.game_state.remaining_miles).upper() + " MILES LEFT"
+                    str(init.game_state.current_game_day).upper() + " | "
+
+    if init.game_state.inventory.items["area_map"]["Quantity"] > 0:
+        game_progress += str(init.game_state.remaining_miles).upper() + " MILES LEFT"
+    else:
+        game_progress += str(cs.initial_miles - init.game_state.remaining_miles).upper() + " MILES WALKED"
     return game_progress
 
 
@@ -44,9 +49,10 @@ def get_next_travel_location_text(location_index):
             hours + 2 + 1) + " HOURS"
     else:
         text = name.upper() + " | " + str(miles) + " MILES | " + str(hours) + "-" + str(hours + 1) + " HOURS"
-    # If it is dark outside, hide the next location info
+    # If it is dark outside adn there is no flashlight, hide the next location info
     if not init.game_state.daylight_now:
-        text = "???"
+        if not init.game_state.inventory.items["flashlight"]["Quantity"] > 0:
+            text = "???"
     return text
 
 

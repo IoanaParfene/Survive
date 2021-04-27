@@ -3,10 +3,14 @@ from Initialization import initialization as init
 from Gameplay import game_play_functions as gpf
 from kivy.uix.floatlayout import FloatLayout
 from Initialization import constants as cs
+from kivy.uix.modalview import ModalView
 from Screens import GUI_classes as gui
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivymd.app import MDApp
+import random
 
 
 class InventoryScreen(gui.BaseGameplayScreen):
@@ -62,6 +66,19 @@ class InventoryScreen(gui.BaseGameplayScreen):
             """ Hide the item close-up description popup"""
             MDApp.get_running_app().root.get_screen("inventory").item_popup.dismiss()
 
+        def show_popup(self, text):
+            """ Show a pop-up with a given text """
+            view = ModalView(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
+            layout = FloatLayout(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0))
+            layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
+                                    font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
+            layout.add_widget(
+                Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
+                       background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
+                       color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))
+            view.add_widget(layout)
+            view.open()
+
         def complete_item_specific_action(self, text, action_type):
             """ Throw away, item consuming or recycling action implementation"""
             # Get the item information in the inventory dictionary
@@ -88,6 +105,11 @@ class InventoryScreen(gui.BaseGameplayScreen):
                     if item["Name"] == "Safe Water Bottle" or "Unsafe Water Bottle" or "Squirrel Juice":
                         # Add an empty water bottle
                         init.game_state.inventory.items["empty_bottle"]["Quantity"] += 1
+                        if item["Name"] == "Unsafe Water Bottle":
+                            damage = random.randint(0, 60)
+                            gpf.immediate_status_bar_decay("Condition", damage)
+                            if init.game_state.game_over == "No":
+                                self.show_popup("The water is too dirty. I feel really sick.")
                 # Item recycling/using action implementation
                 if action_type == "get":
                     for key, value in item["GetActions"].items():

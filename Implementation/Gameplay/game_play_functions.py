@@ -79,11 +79,10 @@ def update_status_bars():
 def immediate_status_bar_decay(status_bar_name, damage):
     """ Take immediate decay based on damage of a certain action"""
     status_bars = init.game_state.status_bars
+    status_bars[status_bar_name].current_value -= damage
     if status_bars[status_bar_name].current_value - damage < (-status_bars[status_bar_name].max_value / 20):
         if status_bar_name != "Calories":
             init.game_state.game_over = "Lost"
-    else:
-        status_bars[status_bar_name].current_value -= damage
 
 
 def immediate_status_bar_increase(status_bar_name, increase):
@@ -99,6 +98,13 @@ def immediate_status_bar_increase(status_bar_name, increase):
 
 def update_inventory():
     """ Update Inventory capacity and item weights """
+    # The current inventory space of the player
+    inventory_capacity = cs.base_inventory_capacity
+    for item in cs.space_boosters:
+        if init.game_state.inventory.items[item[0]]["Quantity"]>0:
+            inventory_capacity += item[1]
+    init.game_state.inventory.max_capacity = inventory_capacity
+    # The items in the inventory
     total_weight = 0
     for key, value in init.game_state.inventory.items.items():
         init.game_state.inventory.items[key]["InventorySpace"] = float(int(init.game_state.inventory.items[key]["Quantity"] * init.game_state.inventory.items[key]["Weight"]))
@@ -176,7 +182,7 @@ def update_rain():
 def update_bars_during_action(hours, irrelevant_factors):
     """ Update status bars during fast-forwarding actions like sleep, travel, explore, etc """
     # Update bars each minute during the action
-    for index in range(0, hours * 60):
+    for index in range(0, int(hours * 60)):
         # Add the passed minute
         init.game_state.skipped_time += 1
         # Update the time
@@ -238,6 +244,12 @@ def add_fuel(fuel_type, *args):
                 # Add the extra minutes to the fire
                 init.game_state.fire_duration += fuel[1]
 
+
+def boil_water(self, fuel_type, *args):
+    """ Turn the dirty water bottles into clean water bottles """
+    init.game_state.inventory.items["water_bottle_safe"]["Quantity"] += \
+    init.game_state.inventory.items["water_bottle_unsafe"]["Quantity"]
+    init.game_state.inventory.items["water_bottle_unsafe"]["Quantity"] = 0
 
 
 

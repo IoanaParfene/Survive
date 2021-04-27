@@ -155,6 +155,7 @@ def manage_fire_menu():
         show_widget(False, "fire", rw.add_wood_button)
         show_widget(False, "fire", rw.add_hardwood_button)
         show_widget(False, "fire", rw.add_tinder_button)
+        show_widget(False, "fire", rw.boil_water_button)
         # Check if the player has any tinder
         if init.game_state.inventory.items["tinder"]["Quantity"] == 0:
             show_widget(True, "fire", rw.fire_tinder_label)
@@ -186,26 +187,16 @@ def manage_fire_menu():
         if init.game_state.inventory.items["hardwood"]["Quantity"] > 0:
             rw.add_hardwood_button.disabled = False
         else:
-            rw.add_hardwood_button.disabled =True
+            rw.add_hardwood_button.disabled = True
+        if init.game_state.inventory.items["water_bottle_unsafe"]["Quantity"] > 0:
+            rw.boil_water_button.disabled = False
+        else:
+            rw.boil_water_button.disabled = True
 
         show_widget(True, "fire", rw.add_tinder_button)
         show_widget(True, "fire", rw.add_wood_button)
         show_widget(True, "fire", rw.add_hardwood_button)
-
-
-def manage_rain_catcher():
-    """ Check if the rain catcher exists """
-    # If the rain catcher hasn't been built yet
-    if not init.game_state.rain_catcher_exists:
-        show_widget(False, "shelter", rw.rain_catcher_label)
-        # If th player has a trash bag
-        if init.game_state.inventory.items["trash_bag"]["Quantity"] == 1:
-            sc.sm.get_screen("shelter").ids.rain_catcher_button.disabled = False
-        else:
-            sc.sm.get_screen("shelter").ids.rain_catcher_button.disabled = True
-    else:
-        sc.sm.get_screen("shelter").ids.rain_catcher_button.disabled = True
-        show_widget(True, "shelter", rw.rain_catcher_label)
+        show_widget(True, "fire", rw.boil_water_button)
 
 
 def manage_rain_catcher():
@@ -220,18 +211,16 @@ def manage_rain_catcher():
         else:
             sc.sm.get_screen("shelter").ids.rain_catcher_button.disabled = True
     else:
+        if init.game_state.raining_now:
+            init.game_state.rain_water_uses = 3
         sc.sm.get_screen("shelter").ids.rain_catcher_button.opacity = 0
         sc.sm.get_screen("shelter").ids.rain_catcher_button.disabled = True
-        init.game_state.rain_water_uses = 3
         show_widget(True, "shelter", rw.rain_catcher_label)
 
 
 def manage_water_collecting():
     """ Collect dirty or clean water """
-    if init.game_state.rain_water_uses > 0:
-        if init.game_state.inventory.items["empty_bottle"]["Quantity"] > 0:
-            sc.sm.get_screen("game").ids.water_collecting.disabled = False
-        else:
-            sc.sm.get_screen("game").ids.water_collecting.disabled = True
+    if init.game_state.rain_water_uses > 0 or init.game_state.current_location["Key"] in cs.water_locations:
+        sc.sm.get_screen("game").ids.water_collecting.disabled = False
     else:
         sc.sm.get_screen("game").ids.water_collecting.disabled = True
