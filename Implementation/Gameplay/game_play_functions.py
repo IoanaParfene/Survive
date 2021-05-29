@@ -62,7 +62,8 @@ def gradual_status_bar_fluctuation(status_bar_name):
             if status_bar_name == "Body Heat":
                 pass
             if not int(status_bars[status_bar_name].current_value - abs(fluctuation_counter - item[2]) * item[0]) < (-status_bars[status_bar_name].max_value / 10):
-                status_bars[status_bar_name].current_value = status_bars[status_bar_name].current_value - abs(fluctuation_counter - item[2]) * item[0]
+                status_bars[status_bar_name].current_value = min(status_bars[status_bar_name].current_value - abs(fluctuation_counter - item[2]) * item[0], status_bars[status_bar_name].max_value)
+                #status_bars[status_bar_name].current_value = status_bars[status_bar_name].current_value - abs(fluctuation_counter - item[2]) * item[0]
                 if (-status_bars[status_bar_name].max_value / 7) < status_bars[status_bar_name].current_value < (-status_bars[status_bar_name].max_value / 15):
                     if status_bar_name != "Calories":
                         init.game_state.game_over = "Lost"
@@ -138,6 +139,7 @@ def get_fluctuation_code():
 
 
 def update_heat_fluctuation_factor(fluctuation_code):
+    print(fluctuation_code, init.game_state.status_bars["Body Heat"].fluctuation)
     """ Update heat fluctuation factor based on location, day time, fire, weather """
     # Modify the Body Heat fluctuation factor if the environmental factors change
     if fluctuation_code != init.game_state.current_heat_factor_code:

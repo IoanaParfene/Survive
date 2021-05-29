@@ -102,7 +102,7 @@ class InventoryScreen(gui.BaseGameplayScreen):
                         for change in item["BarActions"][key]:
                             gpf.immediate_status_bar_increase(change[0], change[1])
                     # Special situation for the water bottle
-                    if item["Name"] == "Safe Water Bottle" or "Unsafe Water Bottle" or "Squirrel Juice":
+                    if item["Name"] == "Safe Water Bottle" or item["Name"] == "Unsafe Water Bottle" or item["Name"] == "Squirrel Juice":
                         # Add an empty water bottle
                         init.game_state.inventory.items["empty_bottle"]["Quantity"] += 1
                         if item["Name"] == "Unsafe Water Bottle":
