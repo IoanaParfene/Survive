@@ -1,3 +1,7 @@
+from kivy.properties import NumericProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.image import Image
+
 from Initialization import initialization as init
 from Gameplay import game_play_functions as gpf
 from kivy.uix.floatlayout import FloatLayout
@@ -7,11 +11,19 @@ from Screens import GUI_classes as gui
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivymd.app import MDApp
+from functools import partial
 import random
 
 
 class GameWindow(gui.BaseGameplayScreen):
     """ Screen for the gameplay menu """
+    #button1 = gui.RoundButton(0.1, 0.1, 0.17, 0.23)
+
+    def __init__(self,**kwargs):
+        super(GameWindow, self).__init__(**kwargs)
+        # Set the position of the label
+        #self.shelter_button = gui.RoundButton(pos_x=0.36, pos_y=0.61, size_x=0.17, size_y=0.23, disable=True, release_function="partial(self.change_window,'shelter')")
+        #self.add_widget(self.shelter_button)
 
     def on_enter(self):
         """ Called when entering the screen """
@@ -22,7 +34,7 @@ class GameWindow(gui.BaseGameplayScreen):
             MDApp.get_running_app().root.get_screen("game").ids.wood_button.disabled = False
         pass
 
-    def change_window(self, new_current_window):
+    def change_window(self, new_current_window, *args):
         """ Change game screen based on a button press """
         # If entering the inventor from the game menu, display the first page of the first item category
         if new_current_window == "inventory":

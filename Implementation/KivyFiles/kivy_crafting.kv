@@ -1,2 +1,154 @@
+#:import Factory kivy.factory.Factory
+
 <CraftingScreen>:
     FloatLayout:
+        Craftable:
+            id: craftable
+            pos_hint:{"x": 0.33, "y": 0.18}
+            size_hint: 0.56, 0.71
+            canvas:
+                Color:
+                    rgba: 0.0, 0.0, 0.0, 1
+                Rectangle:
+                    size: self.width, self.height
+                    pos: self.pos
+
+        Button:
+            id: craft_image
+            pos_hint:{"x": 0.36, "y": 0.37}
+            size_hint: 0.15, 0.45
+            background_color: 0.1, 0.1, 0.1, 1.0
+
+        Label
+            id: craft_name
+            text:"MATCHES"
+            font_size: self.height*0.6
+            bold: True
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint:{"x": 0.53, "y": 0.762}
+            size_hint: 0.34, 0.08
+
+        Label:
+            id: craft_description
+            text:""
+            pos_hint:{"x": 0.53, "y": 0.55}
+            size_hint: 0.34, 0.2
+            halign: 'left'
+            valign: 'top'
+            font_size: self.height*0.15
+            text_size: self.size
+            color: 2.0,2.0,2.0,1.0
+
+        Label:
+            text:"NEEDED:"
+            pos_hint:{"x": 0.53, "y": 0.47}
+            size_hint: 0.1, 0.1
+            halign: 'left'
+            valign: 'top'
+            font_size: self.height*0.35
+            text_size: self.size
+            bold: True
+            color: 0.7,0.7,0.7,1.0
+
+        Label:
+            id: craft_requirement_label
+            text:""
+            pos_hint:{"x": 0.62, "y": 0.47}
+            size_hint: 0.25, 0.1
+            halign: 'left'
+            valign: 'top'
+            font_size: self.height*0.3
+            text_size: self.size
+            color: 2.0,2.0,2.0,1.0
+
+        Label:
+            text:"OWNED:"
+            pos_hint:{"x": 0.53, "y": 0.36}
+            size_hint: 0.1, 0.1
+            halign: 'left'
+            valign: 'top'
+            font_size: self.height*0.36
+            text_size: self.size
+            bold: True
+            color: 0.7,0.7,0.7,1.0
+
+        Label:
+            id: craft_resource_label
+            text:""
+            pos_hint:{"x": 0.62, "y": 0.36}
+            size_hint: 0.25, 0.1
+            halign: 'left'
+            valign: 'top'
+            font_size: self.height*0.3
+            text_size: self.size
+            color: 2.0,2.0,2.0,1.0
+
+        Label:
+            id: limit_label
+            text:"I already have one."
+            pos_hint:{"x": 0.67, "y": 0.25}
+            size_hint: 0.17, 0.08
+            halign: 'left'
+            valign: 'middle'
+            font_size: self.height*0.4
+            text_size: self.size
+            color: 2.0,0.2,0.2,1.0
+
+        Button:
+            id: craft_button
+            pos_hint:{"x": 0.38, "y": 0.25}
+            size_hint: 0.11, 0.08
+            text: "CRAFT"
+            bold: True
+            font_size: self.height*0.6
+            background_color: 2.5,2.5,2.5,1.0
+            color: 0.0,0.0,0.0,1.0
+            on_release:
+                root.craft()
+                Factory.ActionTime("Crafting...").open()
+
+        Label:
+            id: craft_duration
+            text:"30 minutes"
+            pos_hint:{"x": 0.50, "y": 0.25}
+            size_hint: 0.13, 0.08
+            halign: 'left'
+            valign: 'middle'
+            font_size: self.height*0.45
+            text_size: self.size
+            bold: True
+            color: 0.5,0.5,0.5,1.0
+
+        Label
+            id: craft_space
+            text:"0"
+            font_size: self.height*0.7
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint:{"x": 0.36, "y": 0.38}
+            size_hint: 0.15, 0.05
+
+        Button:
+            id: left_scroll
+            pos_hint:{"x": 0.26, "y": 0.47}
+            size_hint: 0.06, 0.1
+            text: "<"
+            bold: True
+            font_size: self.height*0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.scroll_craftables("left")
+
+        Button:
+            id: right_scroll
+            pos_hint:{"x": 0.90, "y": 0.47}
+            size_hint: 0.06, 0.1
+            text: ">"
+            bold: True
+            font_size: self.height*0.5
+            background_color: 0.0, 0.0, 0.0, 1.0
+            on_release:
+                root.scroll_craftables("right")

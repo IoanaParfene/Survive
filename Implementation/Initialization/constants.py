@@ -46,7 +46,7 @@ base_inventory_capacity = 6
 current_inventory_capacity = 0
 inventory_display_category = "A"
 inventory_display_page = 0
-space_boosters = [("dry_sack", 7), ("utility_belt_bag", 6)]
+space_boosters = [("dry_sack", 7), ("utility_belt_bag", 6), ("rope_net_bag", 4)]
 inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "Fi"], "Throw": True, "GetActions": {"Shave": ["tinder"]}, "BarActions": None, "Description": "Wood. Burns nicely and can be used to craft different tools."},
                     "area_map": {"Name": "Area Map", "Weight": 0.0, "Categories": ["A","G","Fi"], "Throw": True, "GetActions": {"Tear": ["tinder"]}, "BarActions": None, "Description": "I can get a rough idea how far I'm from safety."},
                     "empty_bottle": {"Name": "Empty Bottle", "Weight": 1.0, "Categories": ["A","Wa"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Plastic bottle. Empty. I gotta fill this somehow."},
@@ -92,13 +92,34 @@ inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "
                     "birch_bark": {"Name": "Birch Bark", "Weight": 1.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Scrape": ["tinder","tinder","tinder"]}, "BarActions": None, "Description": "This stuff is great when I need to start a fire."},
                     "butane_lighter": {"Name": "Butane Lighter", "Weight": 1.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "A portable device used to generate a flame. Some butane gas is still left."},
                     "fishing_kit": {"Name": "Fishing Kit", "Weight": 2.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Open": ["rope","fishing_hook","empty_can"]}, "BarActions": None, "Description": "A spool of fishing line with couple of fishing hooks in a tin can."},
+                    "fire_plow": {"Name": "Fire Plow", "Weight": 1.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "A primitive tool for starting a fire. Rubbing two sticks together should produce an ember."},
+                    "bow_drill": {"Name": "Bow Drill", "Weight": 2.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "A primitive tool for starting a fire. Using the bow drill requires some skill and plenty of patience."},
+                    "fishing_rod": {"Name": "Fishing Rod", "Weight": 3.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Tear": ["rope", "rope", "wood", "fishing_hook"]}, "BarActions": None, "Description": "A survival fishing rod made of stick, rope, and a hook. Good enough to catch a fish."},
+                    "wooden_spear": {"Name": "Wooden Spear", "Weight": 1.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Tear": ["wood"]}, "BarActions": None, "Description": "It's a wooden spear with a pretty sharp tip. Better than bare handed hunting."},
+                    "rope_net_bag": {"Name": "Rope Net Bag", "Weight": 0.0, "Categories": ["A","G"], "Throw": True, "GetActions":  None, "BarActions": None, "Description": "A survival net bag made of rope. Useful for carrying additional gear[+4 CARRY SPACE]."},
+                    "wood_bundle": {"Name": "Wood Bundle", "Weight": 6.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Tear": ["wood", "wood", "wood", "wood"]}, "BarActions": None, "Description": "Bunch of wood tied together. Makes it easier to carry."}
                     }
+
+# Crafting Menu
+craftable_items = {"fire_plow": {"Name": "Fire Plow", "Limit": True, "Duration": 30, "Needed": [("wood", 1)], "Description": "A primitive tool for starting a fire. Rubbing two sticks together should produce an ember. I can only have one."},
+                    "bow_drill": {"Name": "Bow Drill", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1), ("rope", 1)], "Description": "A primitive tool for starting a fire. Using the bow drill requires some skill and plenty of patience. I can only have one."},
+                    "fishing_rod": {"Name": "Fishing Rod", "Limit": True, "Duration": 30, "Needed": [("wood", 1), ("rope", 2), ("fishing_hook", 1)], "Description": "A survival fishing rod made of stick, rope, and a hook. Good enough to catch a fish. I can only have one."},
+                    "fishing_hook": {"Name": "Wooden Fishing Hook", "Limit": False, "Duration": 60, "Needed": [("wood", 1)], "Description": "A fishing hook. Sharp end."},
+                    "rope": {"Name": "Rope", "Limit": False, "Duration": 30, "Needed": [("piece_of_cloth", 1)], "Description": "Piece of rope. Useful for many purposes in a survival situation. Each piece of rope requires 1/3 unit of carry space."},
+                    "wooden_spear": {"Name": "Wooden Spear", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1)], "Description": "It's a wooden spear with a pretty sharp tip. Better than bare handed hunting. I can only have one."},
+                    #"sling_weapon": {"Name": "Sling Weapon", "Limit": True, "Duration": 60, "Needed": [("hare_skin",1), ("rope", 2)], "Description": "If I get lucky I could catch a bird with this. I can only have one."},
+                    "rope_net_bag": {"Name": "Rope Net Bag", "Limit": True, "Duration": 180, "Needed": [("rope", 3)], "Description": "A survival net bag made of rope. Useful for carrying additional gear[+4 CARRY SPACE]. I can only have one."},
+                    #"pouch": {"Name": "Pouch", "Limit": False, "Duration": 120, "Needed": [("hare_skin",1), ("rope", 1)], "Description": "A small pouch. I can carry stuff in it. I can have a couple of these.[+1 CARRY SPACE]"},
+                    "wood_bundle": {"Name": "Wood Bundle", "Limit": False, "Duration": 60, "Needed": [("wood", 4), ("rope", 1)], "Description": "Bunch of wood tied together. Makes it easier to carry."}
+                    }
+craftable_scroll_page = 0
+
 
 # Heat factor fluctuation
 # shelter, rain, daytime, clothing, fire
 heat_factor_fluctuation = {"srdcf": 0.0, "snrdcf": 0.0, "srndcf": 0.0, "srdncf": 0.0, "srdcnf": 0.0, "snrndcf": 0.0,
                       "snrdncf": 0.0, "snrdcnf": 0.0, "srndncf": 0.0, "srndcnf": 0.0, "srdncnf": 0.0, "snrndncf": 0.0,
-                      "snrndcnf": 0.0, "snrdncnf":0.0, "srndncnf": 0.0, "snrndncnf": 0.0,
+                      "snrndcnf": 0.0, "snrdncnf": 0.0, "srndncnf": 0.0, "snrndncnf": 0.0,
                       "nsrdcf": -2.0, "nsnrdcf": 30.0, "nsrndcf": -3.0, "nsrdncf": -4.5, "nsrdcnf": -3.5,
                       "nsnrndcf": 25.0, "nsnrdncf": 28.0, "nsnrdcnf": 0.5, "nsrndncf": -4.5, "nsrndcnf": -8.0,
                       "nsrdncnf": -6.0, "nsnrndncf": 23.0, "nsnrndcnf": -4.5, "nsnrdncnf": 0.0, "nsrndncnf": -9.5,

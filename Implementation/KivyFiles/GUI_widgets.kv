@@ -172,3 +172,29 @@
             text: "BACK"
             on_release:
                 root.change_window("game")
+
+<RoundButton>:
+    pos_hint:{"x": self.pos_x, "y": self.pos_y}
+    size_hint: self.size_x, self.size_y
+    canvas.before:
+        Color:
+            rgba: 0.0, 0.0, 0.0, 1.0
+        Line:
+            rounded_rectangle: self.pos[0], self.pos[1], self.size[0], self.size[1], 30
+            width: 3
+        Color:
+            rgba: 0.0, 0.0, 0.0, 0.9
+        RoundedRectangle:
+            #size: self.size[0]*0.94, self.size[1]*0.94
+            #pos: self.pos[0]+self.size[0]*0.03, self.pos[1]+self.size[1]*0.03
+            size: self.size
+            pos: self.pos
+            radius:[(30, 30), (30, 30), (30, 30), (30, 30)]
+    font_size: self.size_x*0.2
+    text_size: self.size
+    halign: 'left'
+    valign: 'middle'
+    text: "SHELTER"
+    disabled: self.disable
+    on_release:
+        eval(self.release_function)

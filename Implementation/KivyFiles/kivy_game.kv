@@ -2,12 +2,15 @@
 
 <GameWindow>:
     FloatLayout:
+
         Button:
-            pos_hint:{"x": 0.36, "y": 0.61}
+            pos_hint:{"x": 0.36, "y": 0.610}
             size_hint: 0.17, 0.23
             background_color: 0.0, 0.0, 0.0, 1.0
             font_size: self.height*0.2
             text: "SHELTER"
+            disabled:True
+            disabled: False
             on_release:
                 root.manager.transition.direction = "right"
                 root.change_window("shelter")
@@ -53,6 +56,7 @@
             size_hint: 0.17, 0.23
             text: "CRAFT"
             disabled: True
+            disabled: False
             background_color: 0.0, 0.0, 0.0, 1.0
             font_size: self.height*0.2
             on_release:

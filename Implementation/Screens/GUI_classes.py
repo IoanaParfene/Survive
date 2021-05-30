@@ -1,4 +1,10 @@
-from kivy.properties import StringProperty, NumericProperty
+import math
+
+from kivy.properties import StringProperty, NumericProperty, BooleanProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.image import Image
+from kivy.uix.relativelayout import RelativeLayout
+
 from Initialization import initialization as init
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import Screen
@@ -125,3 +131,56 @@ class DescriptionLabel(FloatLayout):
     def dismiss_view(self, dt):
         """ Label deleting method """
         self.dismiss()
+
+
+class RoundButton(Button):
+
+    # Position coordinates of the label
+    pos_x = NumericProperty(-500)
+    pos_y = NumericProperty(-500)
+
+    # Size of the label
+    size_x = NumericProperty(-500)
+    size_y = NumericProperty(-500)
+
+    #
+    disable = BooleanProperty(False)
+    release_function = StringProperty("")
+
+    def __init__(self, pos_x, pos_y, size_x, size_y, disable, release_function, **kwargs):
+        super(RoundButton, self).__init__(**kwargs)
+        # Set the position of the label
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        # Set the size of the label
+        self.size_x = size_x
+        self.size_y = size_y
+        #
+        self.disable = disable
+        self.release_function = release_function
+
+    def on_touch_down(self, touch):
+        print(self.pos[0], self.pos[0] + self.width)
+        print(self.pos[1], self.pos[1] + self.height)
+        print(touch.x, touch.y)
+        left = touch.x >= self.pos[0] + self.width / 2.0
+        down = touch.y >= self.pos[1] + self.height / 2.0
+        up = touch.y <= self.pos[1] + self.size[1] - self.height / 2.0
+        right = touch.x <= self.pos[0] + self.size[0] - self.width / 2.0
+        #p = ((math.pow((x - h), 2) // math.pow(a, 2)) +(math.pow((y - k), 2) // math.pow(b, 2)))
+
+        h = self.pos[0] + self.width/2
+        k = self.pos[1] + self.height/2
+        x = touch.x
+        y = touch.y
+        a = self.width/2
+        b = self.height/2
+        print(h,k,x,y,a,b)
+        in_circle = ((math.pow((x - h), 2) / math.pow(a, 2)) +
+             (math.pow((y - k), 2) / math.pow(b, 2)))
+
+        if in_circle<=1:
+            print('collided!')
+            self.dispatch('on_release')
+        else:
+            print('outside of area!')

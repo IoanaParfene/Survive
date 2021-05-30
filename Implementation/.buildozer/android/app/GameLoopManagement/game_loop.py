@@ -73,6 +73,8 @@ def game_loop():
         wuf.update_fire_labels("fire")
 
     elif sc.sm.current == "crafting":
+        # Update crafting overview screen
+        wuf.update_craftable_widgets()
         pass
 
     elif sc.sm.current == "inventory":
