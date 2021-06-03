@@ -175,6 +175,6 @@ rain_water_uses = 0
 rain_catcher_exists = False
 
 # Screen info
-shelter_screen_info = "I can use a trash bag to build a raincatcher to collect water during rain. It takes an hour."
+shelter_screen_info = "I can use a trash bag to build a raincatcher to collect water during rain. It takes 15 minutes."
 fire_screen_info = "I need tinder to start a fire.\nI can boil dirty water from the creek.\nI can cook raw meat or smoke it to prevent it from spoiling."
 hunting_screen_info = "I can set traps to catch food.\nDEADFALL(1 wood, 1 bait - 60 minutes): catches hares\nFISH TRAP(1 wood, 1 rope, 1 bait - 60 minutes): catches fish\nBIRD TRAP(1 wood, 1 rope, 1 bait - 60 minutes): catches birds\nI should dismantle the traps before travelling to recover some materials."
