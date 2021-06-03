@@ -60,8 +60,17 @@ def initialize_inventory():
     inventory.items["piece_of_cloth"]["Quantity"] = 1.0
     # Fire
     inventory.items["matches"]["Quantity"] = 6.0
+    #inventory.items["dead_hare"]["Quantity"] = 2.0
     #inventory.items["tinder"]["Quantity"] = 2.0
     return inventory
+
+
+def initialize_traps():
+    # Initialize traps for the game state
+    traps = cs.traps
+    for key, value in traps.items():
+        traps[key]["Quantity"] = 0.0
+    return traps
 
 
 def initialize_game_state():
@@ -72,6 +81,9 @@ def initialize_game_state():
 
     # Initialize inventory
     inventory = initialize_inventory()
+
+    # Initialize traps
+    traps = initialize_traps()
 
     # Initialize first location
     first_location = env.randomize_location_info("pike_lake")
@@ -84,7 +96,7 @@ def initialize_game_state():
                               env.randomize_location_info(random.choice(list(cs.game_locations.keys())[1:]))]
 
     # Game_state object
-    game_state_initialization = gs.GameState(status_bars, inventory, first_location, first_travel_locations,
+    game_state_initialization = gs.GameState(status_bars, inventory, traps, first_location, first_travel_locations,
                                              rain_duration)
 
     return game_state_initialization

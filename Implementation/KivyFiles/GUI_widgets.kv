@@ -173,6 +173,18 @@
             on_release:
                 root.change_window("game")
 
+<FireScreen, HuntingScreen, ShelterScreen>:
+    FloatLayout:
+        Button:
+            pos_hint:{"x": 0.91, "y": 0.90}
+            size_hint: 0.04, 0.07
+            background_color: 0.0, 0.0, 0.0, 1.0
+            bold: True
+            font_size: self.height*0.5
+            text: "(i)"
+            on_release:
+                root.show_info()
+
 <RoundButton>:
     pos_hint:{"x": self.pos_x, "y": self.pos_y}
     size_hint: self.size_x, self.size_y

@@ -2,6 +2,7 @@ from Initialization import initialization as init
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen
 from Gameplay import file_functions as ff
+from Screens import GUI_classes as gui
 from kivy.uix.widget import Widget
 from kivymd.app import MDApp
 import pickle
@@ -9,12 +10,13 @@ import time
 import os
 
 
-class StartMenu(Screen):
+class StartMenu(gui.BaseGameplayScreen):
     """ Screen for the main menu """
 
     class BackgroundStart(Widget):
         """ Background image of the screen """
         this_source = StringProperty(ff.get_path("../Images/start_screen.png"))
+
 
     def try_loading(self, *args):
         """ Loading game action """
@@ -42,4 +44,6 @@ class StartMenu(Screen):
         init.game_state.start_time = time.time()
         init.game_state.time_is_stopped = True
         init.game_state.start_paused_time = time.time()
+
+        self.show_popup("My car stopped working...I am in the middle of the woods and it's raining!\n There's mud all over the car tracks. I have to get back to the main road!")
 

@@ -58,6 +58,10 @@ class TravelScreen(gui.BaseGameplayScreen):
             # Lose the water from the rain catcher
             init.game_state.rain_water_uses = 0
 
+            # Remove traps
+            for trap_type, info in init.game_state.traps.items():
+                info["Quantity"] = 0
+
             # Randomize the two new location for the next travel
             init.game_state.current_location = init.game_state.travel_next[travel_path]
             init.game_state.travel_next = [env.randomize_location_info(random.choice(list(init.game_state.game_locations.keys())[1:])),

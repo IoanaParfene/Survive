@@ -85,10 +85,13 @@ class InventoryScreen(gui.BaseGameplayScreen):
             for key, value in init.game_state.inventory.items.items():
                 if init.game_state.inventory.items[key]["Name"] == text:
                     item = init.game_state.inventory.items[key]
+                    item_key = key
             # If the item exists
             if item["Quantity"] > 0:
-                # Remove on unit of the item from the inventory
+                # Remove one unit of the item from the inventory
                 item["Quantity"] -= 1
+                # Remove the spoil rate of that item
+                gpf.remove_item_spoil_rate(key, 1)
                 # Modify the space occupied by all the item units in the inventory
                 item["InventorySpace"] = float(int(item["Quantity"] * item["Weight"]))
                 # Modify the GUI item quantity label text
@@ -105,11 +108,13 @@ class InventoryScreen(gui.BaseGameplayScreen):
                     if item["Name"] == "Safe Water Bottle" or item["Name"] == "Unsafe Water Bottle" or item["Name"] == "Squirrel Juice":
                         # Add an empty water bottle
                         init.game_state.inventory.items["empty_bottle"]["Quantity"] += 1
-                        if item["Name"] == "Unsafe Water Bottle":
-                            damage = random.randint(0, 60)
-                            gpf.immediate_status_bar_decay("Condition", damage)
-                            if init.game_state.game_over == "No":
-                                self.show_popup("The water is too dirty. I feel really sick.")
+                        # Manage condition damaging consumables
+                    if item_key in cs.damaging_consumables.keys():
+                        damage = random.randint(cs.damaging_consumables[item_key]["DamageInterval"][0],
+                                                cs.damaging_consumables[item_key]["DamageInterval"][1])
+                        gpf.immediate_status_bar_decay("Condition", damage)
+                        if init.game_state.game_over == "No":
+                            self.show_popup("This was not a good idea. I feel really sick.")
                 # Item recycling/using action implementation
                 if action_type == "get":
                     for key, value in item["GetActions"].items():
@@ -123,6 +128,7 @@ class InventoryScreen(gui.BaseGameplayScreen):
                         # Add the items received by recycling/using the current item to the inventory
                         for key, value in received_dict.items():
                             init.game_state.inventory.items[key]["Quantity"] += value
+                            gpf.add_item_spoil_rate(key, value)
                 # If there are no more units of a certain item close the close-up popup
                 if item["Quantity"] == 0:
                     MDApp.get_running_app().root.get_screen("inventory").item_popup.dismiss()

@@ -103,7 +103,7 @@ def update_inventory():
     inventory_capacity = cs.base_inventory_capacity
     for item in cs.space_boosters:
         if init.game_state.inventory.items[item[0]]["Quantity"]>0:
-            inventory_capacity += item[1]
+            inventory_capacity += item[1] * int(init.game_state.inventory.items[item[0]]["Quantity"])
     init.game_state.inventory.max_capacity = inventory_capacity
     # The items in the inventory
     total_weight = 0
@@ -247,13 +247,67 @@ def add_fuel(fuel_type, *args):
                 init.game_state.fire_duration += fuel[1]
 
 
-def boil_water(self, fuel_type, *args):
+def boil_water(*args):
     """ Turn the dirty water bottles into clean water bottles """
     init.game_state.inventory.items["water_bottle_safe"]["Quantity"] += \
     init.game_state.inventory.items["water_bottle_unsafe"]["Quantity"]
     init.game_state.inventory.items["water_bottle_unsafe"]["Quantity"] = 0
 
 
+def smoke_meat(*args):
+    """ Turn a piece of meat into smoked jerky """
+    init.game_state.inventory.items["raw_meat"]["Quantity"] -= 1
+    init.game_state.inventory.items["smoked_jerky"]["Quantity"] += 1
 
+
+def cook_meat(*args):
+    """ Cook a piece of raw meat """
+    init.game_state.inventory.items["raw_meat"]["Quantity"] -= 1
+    init.game_state.inventory.items["cooked_meat"]["Quantity"] += 1
+    add_item_spoil_rate("cooked_meat", 1)
+
+
+def update_traps():
+    """ Make traps catch something each hour with a specific chance """
+    # Catch prey
+    init.game_state.last_hour_trapped_animals = []
+    for trap_type, info in init.game_state.traps.items():
+        for counter in range(0, int(info["Quantity"])):
+            weights = [info["HourlyTrapChance"] * 100, 100 - info["HourlyTrapChance"] * 100]
+            caught_something = random.choices([True, False], weights=weights, k=1)
+            if caught_something[0] is True:
+                inventory_hunt_item = "dead_" + info["Prey"]
+                init.game_state.inventory.items[inventory_hunt_item]["Quantity"] += 1
+                add_item_spoil_rate(inventory_hunt_item, 1)
+                init.game_state.last_hour_trapped_animals.append(info["Prey"])
+
+
+def add_item_spoil_rate(item, quantity):
+    """ Add the spoil rate of the item if it has one """
+    if item in cs.spoil_items.keys():
+        for counter in range(0, quantity):
+            passed_game_hours = init.game_state.game_time / 60
+            hours_until_spoilage = cs.spoil_items[item]["FreshTime"]
+            init.game_state.spoiling_rates[item].append((passed_game_hours, hours_until_spoilage))
+
+
+def remove_item_spoil_rate(item, quantity):
+    """ Remove the spoil rate of the item if it has one """
+    if item in cs.spoil_items.keys():
+        for counter in range(0, quantity):
+            init.game_state.spoiling_rates[item].pop()
+
+
+def update_spoiled_items():
+    """ Turn spoiled items into spoiled meat """
+    # Game passed hours
+    game_passed_hours = init.game_state.game_time // 60
+    for key, value in cs.spoil_items.items():
+        for rate in init.game_state.spoiling_rates[key]:
+            if game_passed_hours - rate[0] > rate[1]:
+                init.game_state.inventory.items[key]["Quantity"] -= 1
+                for item in cs.spoil_items[key]["SpoilItems"]:
+                    init.game_state.inventory.items[item]["Quantity"] += 1
+                init.game_state.spoiling_rates[key].pop()
 
 

@@ -32,9 +32,9 @@ car_label = create_label("My car keeps me warm.", 0.35, 0.01, 0.4, 0.2, "left", 
 # Show that the player has build a raincatcher at the current location
 rain_catcher_label = create_label("I have a rain catcher.", 0.35, 0.1, 0.4, 0.2, "left", "bottom", 0.4)
 # Show that the player doesn't have tinder
-fire_tinder_label = create_label("You need tinder.", 0.35, 0.6, 0.5, 0.2, "center", "middle", 0.5)
+fire_tinder_label = create_label("I need tinder.", 0.35, 0.6, 0.5, 0.2, "center", "middle", 0.5)
 # Show that the player doesn't have tools to start a fire
-fire_tools_label = create_label("You need tools to start a fire.", 0.35, 0.6, 0.5, 0.2, "center", "middle", 0.5)
+fire_tools_label = create_label("I need tools to start a fire.", 0.35, 0.6, 0.5, 0.2, "center", "middle", 0.5)
 # Show that the player doesn't have tools to start a fire
 fire_time_remaining = create_label("", 0.05, 0.7, 0.25, 0.15, "left", "bottom", 0.5)
 
@@ -47,10 +47,10 @@ add_hardwood_button = create_button("ADD HARDWOOD", 0.63, 0.67, 0.2, 0.18, 0.27,
 # Add tinder tot the fire
 add_tinder_button = create_button("ADD TINDER", 0.38, 0.44, 0.2, 0.18, 0.3, "partial(gpf.add_fuel,'tinder')")
 # Boil dirty water to make it clean
-boil_water_button = create_button("BOIL WATER", 0.63, 0.44, 0.2, 0.18, 0.3, "partial(gpf.boil_water,'matches')")
+boil_water_button = create_button("BOIL WATER", 0.63, 0.44, 0.2, 0.18, 0.3, "partial(gpf.boil_water)")
 
 # Add hardwood to the fire
-cook_meat_button = create_button("COOK MEAT", 0.38, 0.21, 0.2, 0.18, 0.3, "partial(gpf.start_fire,'matches')")
+cook_meat_button = create_button("COOK MEAT", 0.38, 0.21, 0.2, 0.18, 0.3, "partial(gpf.cook_meat)")
 # Add tinder tot the fire
-smoke_meat_button = create_button("SMOKE MEAT", 0.63, 0.21, 0.2, 0.18, 0.3, "partial(gpf.start_fire,'matches')")
+smoke_meat_button = create_button("SMOKE MEAT", 0.63, 0.21, 0.2, 0.18, 0.3, "partial(gpf.smoke_meat)")
 

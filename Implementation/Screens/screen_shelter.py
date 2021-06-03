@@ -1,10 +1,14 @@
 from Initialization import initialization as init
 from Gameplay import game_play_functions as gpf
+from Initialization import constants as cs
 from Screens import GUI_classes as gui
 
 
 class ShelterScreen(gui.BaseGameplayScreen):
     """ Screen for the shelter menu """
+
+    def show_info(self):
+        self.show_popup(cs.shelter_screen_info)
 
     def rest(self, hours):
         """ Sleep action implementation """

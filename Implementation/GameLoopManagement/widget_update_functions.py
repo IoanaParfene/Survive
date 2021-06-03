@@ -43,8 +43,7 @@ def update_status_bar_labels(screen_type):
             bar_value = tuf.status_bar_value_update(status_bar_name)
             bar = eval("sc.sm.get_screen(screen_type).ids.my_" + status_bar_name.split(" ", 1)[-1].lower() + '_bar')
             bar.value = int(bar_value)
-            label = eval(
-                "sc.sm.get_screen(screen_type).ids." + status_bar_name.split(" ", 1)[-1].lower() + '_label_value')
+            label = eval("sc.sm.get_screen(screen_type).ids." + status_bar_name.split(" ", 1)[-1].lower() + '_label_value')
             label.text = str(int(bar_value))
     # Calories status bar update
     calories = tuf.status_bar_value_update("Calories")
@@ -171,24 +170,31 @@ def update_craftable_widgets():
             sc.sm.get_screen('crafting').ids.left_scroll.disabled = True
         else:
             sc.sm.get_screen('crafting').ids.left_scroll.disabled = False
-        #eval("sc.sm.get_screen('inventory').ids.inv_quantity_" + str(slot)).text = str(
-            #int(display_list[slot + 5 * cs.inventory_display_page - 1][1]["Quantity"])) + " remaining"
 
-        """"# Update the slot item quantity
-        eval("sc.sm.get_screen('inventory').ids.inv_quantity_" + str(slot)).text = str(
-            int(display_list[slot + 5 * cs.inventory_display_page - 1][1]["Quantity"])) + " remaining"
-        # Update the slot item taken space
-        eval("sc.sm.get_screen('inventory').ids.inv_space_" + str(slot)).text = "Space: " + str(
-            int(display_list[slot + 5 * cs.inventory_display_page - 1][1]["InventorySpace"]))
-    else:
-        # Disable the slot button
-        eval("sc.sm.get_screen('inventory').ids.inv_slot_" + str(slot)).disabled = True
-        # Update the slot item name
-        eval("sc.sm.get_screen('inventory').ids.inv_item_" + str(slot)).text = ""
-        # Update the slot item quantity
-        eval("sc.sm.get_screen('inventory').ids.inv_quantity_" + str(slot)).text = ""
-        # Update the slot item taken space
-        eval("sc.sm.get_screen('inventory').ids.inv_space_" + str(slot)).text = """
+
+def update_hunting_screen():
+    """ Update the possible hunting action """
+
+    for action, info in cs.hunting_trap_actions.items():
+        if init.game_state.current_location["Key"] in info["Locations"]:
+            eval("sc.sm.get_screen('hunting').ids." + str(action)).opacity = 1
+            eval("sc.sm.get_screen('hunting').ids." + str(action)).disabled = False
+        else:
+            eval("sc.sm.get_screen('hunting').ids." + str(action)).opacity = 0
+            eval("sc.sm.get_screen('hunting').ids." + str(action)).disabled = True
+
+
+def update_hunting_labels():
+    """ Update the quantity item labels in the hunting screen """
+    # Update trap labels
+    for item, info in init.game_state.traps.items():
+        eval("sc.sm.get_screen('hunting').ids." + str(item)).text = str(item) + ": " + str(int(info["Quantity"]))
+    # Update bait label
+    sc.sm.get_screen("hunting").ids.bait.text = "bait: " + str(int(init.game_state.inventory.items["bait"]["Quantity"]))
+    # Update fishing rod label
+    sc.sm.get_screen("hunting").ids.fishing_rod.text = "fishing rod: " + str(int(init.game_state.inventory.items["fishing_rod"]["Quantity"]))
+    # Update spear label
+    sc.sm.get_screen("hunting").ids.spear.text = "spear: " + str(int(init.game_state.inventory.items["wooden_spear"]["Quantity"]))
 
 
 def update_next_travel_locations():
@@ -238,6 +244,8 @@ def manage_fire_menu():
         show_widget(False, "fire", rw.add_hardwood_button)
         show_widget(False, "fire", rw.add_tinder_button)
         show_widget(False, "fire", rw.boil_water_button)
+        show_widget(False, "fire", rw.cook_meat_button)
+        show_widget(False, "fire", rw.smoke_meat_button)
         # Check if the player has any tinder
         if init.game_state.inventory.items["tinder"]["Quantity"] == 0:
             show_widget(True, "fire", rw.fire_tinder_label)
@@ -275,11 +283,21 @@ def manage_fire_menu():
             rw.boil_water_button.disabled = False
         else:
             rw.boil_water_button.disabled = True
+        if init.game_state.inventory.items["raw_meat"]["Quantity"] > 0:
+            rw.cook_meat_button.disabled = False
+        else:
+            rw.cook_meat_button.disabled = True
+        if init.game_state.inventory.items["raw_meat"]["Quantity"] > 0:
+            rw.smoke_meat_button.disabled = False
+        else:
+            rw.smoke_meat_button.disabled = True
 
         show_widget(True, "fire", rw.add_tinder_button)
         show_widget(True, "fire", rw.add_wood_button)
         show_widget(True, "fire", rw.add_hardwood_button)
         show_widget(True, "fire", rw.boil_water_button)
+        show_widget(True, "fire", rw.cook_meat_button)
+        show_widget(True, "fire", rw.smoke_meat_button)
 
 
 def manage_rain_catcher():
@@ -307,3 +325,18 @@ def manage_water_collecting():
         sc.sm.get_screen("game").ids.water_collecting.disabled = False
     else:
         sc.sm.get_screen("game").ids.water_collecting.disabled = True
+
+
+def update_trap_notifications(screen_name):
+    """ Display the pray caught on the screen in the last hour """
+    # Passed game_hours
+    game_hours = init.game_state.game_time // 60
+    # If a new hour has passed
+    if game_hours > init.game_state.last_trap_hour:
+        # Update traps
+        gpf.update_traps()
+        # Reset the trap checking hour
+        init.game_state.last_trap_hour = game_hours
+        # Display the caught pray
+        for pray_type in init.game_state.last_hour_trapped_animals:
+            sc.sm.get_screen(screen_name).show_popup("I caught a " + pray_type.lower() + ".")

@@ -33,10 +33,14 @@ def game_loop():
             gpf.update_fire()
             # Update the inventory once per frame
             gpf.update_inventory()
+            # Update the items that have spoiled
+            gpf.update_spoiled_items()
             # Update fluctuation factor based on location, day time, fire, weather
             gpf.update_heat_fluctuation_factor(gpf.get_fluctuation_code())
             # Update status_bars
             gpf.update_status_bars()
+            # Manage activated traps
+            wuf.update_trap_notifications(screen_type)
         # Update time and location labels
         wuf.update_progress_labels(screen_type)
         # Update status bars and labels
@@ -51,6 +55,8 @@ def game_loop():
         wuf.manage_rain_catcher()
         # Manage water collecting
         wuf.manage_water_collecting()
+        # Update hunting screen action buttons
+        wuf.update_hunting_screen()
 
     if sc.sm.current == "start":
         pass
@@ -69,7 +75,7 @@ def game_loop():
         wuf.check_for_car_shelter()
 
     elif sc.sm.current == "fire":
-        """ Show the resources for the fire """
+        # Show the resources for the fire
         wuf.update_fire_labels("fire")
 
     elif sc.sm.current == "crafting":
@@ -84,7 +90,8 @@ def game_loop():
         wuf.update_inventory_capacity_widgets("inventory")
 
     elif sc.sm.current == "hunting":
-        pass
+        # Show the hunting/trap items
+        wuf.update_hunting_labels()
 
     elif sc.sm.current == "travel":
         # Update the next travel location widgets

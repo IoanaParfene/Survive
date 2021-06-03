@@ -46,7 +46,7 @@ base_inventory_capacity = 6
 current_inventory_capacity = 0
 inventory_display_category = "A"
 inventory_display_page = 0
-space_boosters = [("dry_sack", 7), ("utility_belt_bag", 6), ("rope_net_bag", 4)]
+space_boosters = [("dry_sack", 7), ("utility_belt_bag", 6), ("rope_net_bag", 4), ("pouch", 1)]
 inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "Fi"], "Throw": True, "GetActions": {"Shave": ["tinder"]}, "BarActions": None, "Description": "Wood. Burns nicely and can be used to craft different tools."},
                     "area_map": {"Name": "Area Map", "Weight": 0.0, "Categories": ["A","G","Fi"], "Throw": True, "GetActions": {"Tear": ["tinder"]}, "BarActions": None, "Description": "I can get a rough idea how far I'm from safety."},
                     "empty_bottle": {"Name": "Empty Bottle", "Weight": 1.0, "Categories": ["A","Wa"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Plastic bottle. Empty. I gotta fill this somehow."},
@@ -97,23 +97,63 @@ inventory_items = {"wood": {"Name": "Wood", "Weight": 3.0, "Categories": ["A", "
                     "fishing_rod": {"Name": "Fishing Rod", "Weight": 3.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Tear": ["rope", "rope", "wood", "fishing_hook"]}, "BarActions": None, "Description": "A survival fishing rod made of stick, rope, and a hook. Good enough to catch a fish."},
                     "wooden_spear": {"Name": "Wooden Spear", "Weight": 1.0, "Categories": ["A","G"], "Throw": True, "GetActions": {"Tear": ["wood"]}, "BarActions": None, "Description": "It's a wooden spear with a pretty sharp tip. Better than bare handed hunting."},
                     "rope_net_bag": {"Name": "Rope Net Bag", "Weight": 0.0, "Categories": ["A","G"], "Throw": True, "GetActions":  None, "BarActions": None, "Description": "A survival net bag made of rope. Useful for carrying additional gear[+4 CARRY SPACE]."},
-                    "wood_bundle": {"Name": "Wood Bundle", "Weight": 6.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Tear": ["wood", "wood", "wood", "wood"]}, "BarActions": None, "Description": "Bunch of wood tied together. Makes it easier to carry."}
-                    }
+                    "wood_bundle": {"Name": "Wood Bundle", "Weight": 6.0, "Categories": ["A","Fi"], "Throw": True, "GetActions": {"Tear": ["wood", "wood", "wood", "wood"]}, "BarActions": None, "Description": "Bunch of wood tied together. Makes it easier to carry."},
+                    "raw_meat": {"Name": "Raw Meat", "Weight": 1.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": {"Slice": ["bait", "bait"]}, "BarActions": {"Eat": [("Calories", 400.0)]}, "Description": "Ready for cooking."},
+                    "spoiled_meat": {"Name": "Spoiled Meat", "Weight": 3.0, "Categories": ["A","Fo"], "Throw": True, "GetActions": None, "BarActions": {"Eat": [("Calories", 200.0)]}, "Description": "This Smells very bad. I think I should throw this away."},
+                    "cooked_meat": {"Name": "Cooked Meat", "Weight": 1.0, "Categories": ["A", "Fo"], "Throw": True, "GetActions": None, "BarActions": {"Eat": [("Calories", 800.0)]}, "Description": "Oh my gosh! This smells delicious."},
+                    "dead_hare": {"Name": "Dead Hare", "Weight": 4.0, "Categories": ["A", "Fo"], "Throw": True, "GetActions": {"Cut": ["raw_meat", "raw_meat", "raw_meat", "bait", "hare_skin"]}, "BarActions": None, "Description": "Furry creature. Not going anywhere any more. Decent survival food after preparing and cooking."},
+                    "dead_fish": {"Name": "Dead Fish", "Weight": 1.0, "Categories": ["A", "Fo"], "Throw": True, "GetActions": {"Cut": ["raw_meat"]}, "BarActions": None, "Description": "It's a dead fish. Raw."},
+                    "dead_bird": {"Name": "Dead Bird", "Weight": 3.0, "Categories": ["A", "Fo"], "Throw": True, "GetActions": {"Cut": ["raw_meat", "raw_meat"]}, "BarActions": None, "Description": "Small dead bird."},
+                    "hare_skin": {"Name": "Hare Skin", "Weight": 1.0, "Categories": ["A", "G"], "Throw": True, "GetActions": None, "BarActions": None, "Description": "Skin of a dead hare. Could be used to make a pouch."}
+                   }
+
+spoil_items = {"raw_meat": {"FreshTime": 15, "SpoilItems": ["spoiled_meat"]},
+               "cooked_meat": {"FreshTime": 24, "SpoilItems": ["spoiled_meat"]},
+               "dead_hare": {"FreshTime": 24, "SpoilItems": ["spoiled_meat", "spoiled_meat", "spoiled_meat"]},
+               "dead_fish": {"FreshTime": 8, "SpoilItems": ["spoiled_meat"]},
+               "dead_bird": {"FreshTime": 14, "SpoilItems": ["spoiled_meat", "spoiled_meat"]}
+              }
+spoiling_rates = {"raw_meat": [],
+                  "cooked_meat": [],
+                  "dead_hare": [],
+                  "dead_fish": [],
+                  "dead_bird": []
+                }
+damaging_consumables = {"water_bottle_unsafe": {"DamageInterval": (0,60)},
+                        "raw_meat": {"DamageInterval": (30,70)},
+                        "spoiled_meat": {"DamageInterval": (50,90)}
+                        }
 
 # Crafting Menu
-craftable_items = {"fire_plow": {"Name": "Fire Plow", "Limit": True, "Duration": 30, "Needed": [("wood", 1)], "Description": "A primitive tool for starting a fire. Rubbing two sticks together should produce an ember. I can only have one."},
-                    "bow_drill": {"Name": "Bow Drill", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1), ("rope", 1)], "Description": "A primitive tool for starting a fire. Using the bow drill requires some skill and plenty of patience. I can only have one."},
-                    "fishing_rod": {"Name": "Fishing Rod", "Limit": True, "Duration": 30, "Needed": [("wood", 1), ("rope", 2), ("fishing_hook", 1)], "Description": "A survival fishing rod made of stick, rope, and a hook. Good enough to catch a fish. I can only have one."},
-                    "fishing_hook": {"Name": "Wooden Fishing Hook", "Limit": False, "Duration": 60, "Needed": [("wood", 1)], "Description": "A fishing hook. Sharp end."},
-                    "rope": {"Name": "Rope", "Limit": False, "Duration": 30, "Needed": [("piece_of_cloth", 1)], "Description": "Piece of rope. Useful for many purposes in a survival situation. Each piece of rope requires 1/3 unit of carry space."},
-                    "wooden_spear": {"Name": "Wooden Spear", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1)], "Description": "It's a wooden spear with a pretty sharp tip. Better than bare handed hunting. I can only have one."},
-                    #"sling_weapon": {"Name": "Sling Weapon", "Limit": True, "Duration": 60, "Needed": [("hare_skin",1), ("rope", 2)], "Description": "If I get lucky I could catch a bird with this. I can only have one."},
-                    "rope_net_bag": {"Name": "Rope Net Bag", "Limit": True, "Duration": 180, "Needed": [("rope", 3)], "Description": "A survival net bag made of rope. Useful for carrying additional gear[+4 CARRY SPACE]. I can only have one."},
-                    #"pouch": {"Name": "Pouch", "Limit": False, "Duration": 120, "Needed": [("hare_skin",1), ("rope", 1)], "Description": "A small pouch. I can carry stuff in it. I can have a couple of these.[+1 CARRY SPACE]"},
-                    "wood_bundle": {"Name": "Wood Bundle", "Limit": False, "Duration": 60, "Needed": [("wood", 4), ("rope", 1)], "Description": "Bunch of wood tied together. Makes it easier to carry."}
+craftable_items = {#"fire_plow": {"Name": "Fire Plow", "Limit": True, "Duration": 30, "Needed": [("wood", 1)], "Description": "A primitive tool for starting a fire. Rubbing two sticks together should produce an ember. I can only have one."},
+                   #"bow_drill": {"Name": "Bow Drill", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1), ("rope", 1)], "Description": "A primitive tool for starting a fire. Using the bow drill requires some skill and plenty of patience. I can only have one."},
+                   #"fishing_rod": {"Name": "Fishing Rod", "Limit": True, "Duration": 30, "Needed": [("wood", 1), ("rope", 2), ("fishing_hook", 1)], "Description": "A survival fishing rod made of stick, rope, and a hook. Good enough to catch a fish. I can only have one."},
+                   #"fishing_hook": {"Name": "Wooden Fishing Hook", "Limit": False, "Duration": 60, "Needed": [("wood", 1)], "Description": "A fishing hook. Sharp end."},
+                   "rope": {"Name": "Rope", "Limit": False, "Duration": 30, "Needed": [("piece_of_cloth", 1)], "Description": "Piece of rope. Useful for many purposes in a survival situation. Each piece of rope requires 1/3 unit of carry space."},
+                   #"wooden_spear": {"Name": "Wooden Spear", "Limit": True, "Duration": 30, "Needed": [("hardwood", 1)], "Description": "It's a wooden spear with a pretty sharp tip. Better than bare handed hunting. I can only have one."},
+                   "rope_net_bag": {"Name": "Rope Net Bag", "Limit": True, "Duration": 180, "Needed": [("rope", 3)], "Description": "A survival net bag made of rope. Useful for carrying additional gear[+4 CARRY SPACE]. I can only have one."},
+                   "pouch": {"Name": "Pouch", "Limit": False, "Duration": 120, "Needed": [("hare_skin",1), ("rope", 1)], "Description": "A small pouch. I can carry stuff in it. I can have a couple of these.[+1 CARRY SPACE]"},
+                   "wood_bundle": {"Name": "Wood Bundle", "Limit": False, "Duration": 60, "Needed": [("wood", 4), ("rope", 1)], "Description": "Bunch of wood tied together. Makes it easier to carry."}
                     }
 craftable_scroll_page = 0
 
+
+# Hunting and traps
+hunting_trap_actions = {#"track": {"Locations": ["muddy_road", "path", "woodland"]},
+                        "set_bird_trap": {"Locations": ["muddy_road", "muddy_area", "path", "woodland"]},
+                        "set_fish_trap": {"Locations": ["flooded_area", "muddy_area"]},
+                        "set_deadfall": {"Locations": ["path", "woodland"]},
+                        #"spear_fish": {"Locations": ["flooded_area", "muddy_area"]},
+                        #"fish": {"Locations": ["flooded_area", "muddy_area"]},
+                        "dismantle_traps": {"Locations": ["flooded_area", "muddy_road", "muddy_area", "path", "woodland"]}
+                        }
+
+traps = {"deadfall": {"Needed":[("wood", 1), ("bait", 1)], "HourlyTrapChance": 0.03, "Prey": "hare"},
+         "fish_trap": {"Needed":[("rope", 1), ("wood", 1), ("bait", 1)], "HourlyTrapChance": 0.04, "Prey": "fish"},
+         "bird_trap": {"Needed":[("rope", 1), ("wood", 1), ("bait", 1)], "HourlyTrapChance": 0.05, "Prey": "bird"}
+        }
+last_trap_hour = 0
+last_hour_trapped_animals = []
 
 # Heat factor fluctuation
 # shelter, rain, daytime, clothing, fire
@@ -134,3 +174,7 @@ rain_water = 0
 rain_water_uses = 0
 rain_catcher_exists = False
 
+# Screen info
+shelter_screen_info = "I can use a trash bag to build a raincatcher to collect water during rain. It takes an hour."
+fire_screen_info = "I need tinder to start a fire.\nI can boil dirty water from the creek.\nI can cook raw meat or smoke it to prevent it from spoiling."
+hunting_screen_info = "I can set traps to catch food.\nDEADFALL(1 wood, 1 bait - 60 minutes): catches hares\nFISH TRAP(1 wood, 1 rope, 1 bait - 60 minutes): catches fish\nBIRD TRAP(1 wood, 1 rope, 1 bait - 60 minutes): catches birds\nI should dismantle the traps before travelling to recover some materials."

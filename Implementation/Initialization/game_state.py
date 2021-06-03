@@ -3,7 +3,7 @@ import copy
 
 
 class GameState:
-    def __init__(self, status_bars, inventory, first_location, first_travel_locations, rain_duration):
+    def __init__(self, status_bars, inventory, traps, first_location, first_travel_locations, rain_duration):
         # Time related variables
         self.game_speed = copy.copy(cs.game_speed)
         # Start time of a new game_play
@@ -66,5 +66,13 @@ class GameState:
         self.rain_water_uses = copy.copy(cs.rain_water_uses)
         # Boolean for the existence of the raincatcher
         self.rain_catcher_exists = copy.copy(cs.rain_catcher_exists)
+        # Existing traps
+        self.traps = traps
+        # Last hour the traps were checked by the game
+        self.last_trap_hour = copy.copy(cs.last_trap_hour)
+        # Last hour's trapped animals
+        self.last_hour_trapped_animals = copy.copy(cs.last_hour_trapped_animals)
+        # List of items that are going to spoil
+        self.spoiling_rates = copy.copy(cs.spoiling_rates)
 
 

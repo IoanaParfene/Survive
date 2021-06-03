@@ -91,7 +91,7 @@ class BaseGameplayScreen(Screen):
         view = ModalView(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0), background="Images/black.png")
         layout = FloatLayout(pos_hint={"x": 0.0, "y": 0.0}, size_hint=(1.0, 1.0))
         layout.add_widget(Label(text=text, pos_hint={"x": 0.1, "y": 0.4}, size_hint=(0.8, 0.5),
-                                font_size=self.height * 0.1, text_size=self.size, halign='center', valign='middle'))
+                                font_size=self.height * 0.05, text_size=self.size, halign='center', valign='middle'))
         layout.add_widget(Button(pos_hint={"x": 0.44, "y": 0.3}, size_hint=(0.12, 0.1), font_size=self.height * 0.05,
                                  background_color=(2.5, 2.5, 2.5, 1.0), on_release=view.dismiss,
                                  color=(0.0, 0.0, 0.0, 1.0), text="OKAY", bold=True))

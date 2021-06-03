@@ -1,2 +1,144 @@
+#:import Factory kivy.factory.Factory
+
 <HuntingScreen>:
     FloatLayout:
+        Label:
+            id: deadfall
+            text:"deadfalls: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.72}
+
+        Label:
+            id: bird_trap
+            text:"bird traps: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.67}
+
+        Label:
+            id: fish_trap
+            text:"fish traps: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.62}
+
+        Label:
+            id: bait
+            text:"bait: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.57}
+
+        Label:
+            id: fishing_rod
+            text:"fishing rod: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.5}
+
+        Label:
+            id: spear
+            text:"spear: 0"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.45}
+
+        Button:
+            id: set_fish_trap
+            pos_hint:{"x": 0.33, "y": 0.67}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            text: "SET FISH\nTRAP"
+            on_release:
+                root.set_trap("fish_trap")
+                Factory.ActionTime("Building...").open()
+
+        Button:
+            id: spear_fish
+            pos_hint:{"x": 0.55, "y": 0.67}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            disabled: True
+            opacity: 0
+            text: "SPEAR FISH"
+
+        Button:
+            id: fish
+            pos_hint:{"x": 0.77, "y": 0.67}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            disabled: True
+            opacity: 0
+            text: "FISH"
+
+        Button:
+            id: set_bird_trap
+            pos_hint:{"x": 0.33, "y": 0.45}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            text: "SET BIRD\nTRAP"
+            on_release:
+                root.set_trap("bird_trap")
+                Factory.ActionTime("Building...").open()
+
+        Button:
+            id: set_deadfall
+            pos_hint:{"x": 0.33, "y": 0.23}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            text: "SET DEADFALL"
+            on_release:
+                root.set_trap("deadfall")
+                Factory.ActionTime("Building...").open()
+
+        Button:
+            id: track
+            pos_hint:{"x": 0.65, "y": 0.3}
+            size_hint: 0.2, 0.2
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            disabled: True
+            opacity: 0
+            text: "TRACK"
+
+        Button:
+            id: dismantle_traps
+            pos_hint:{"x": 0.355, "y": 0.06}
+            size_hint: 0.15, 0.15
+            font_size: self.width*0.13
+            background_color: 0.0, 0.0, 0.0, 1.0
+            halign: 'center'
+            text: "DISMANTLE\nTRAPS"
+            on_release:
+                root.dismantle_traps()
+                Factory.ActionTime("Dismantling...").open()
