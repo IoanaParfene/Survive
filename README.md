@@ -137,26 +137,3 @@ Started converting code to Kivy
 * Exceeding inventory blocks player from travelling
 * Building a rain catcher takes 15 minutes
 
-### Week 13 - DONE
-* Cleaned up the code, removed bugs, added features
-
-#### Bugs Removed
-* Status bars no longer increase over maximum accepted value
-* All drunk bottles turn into empty bottles
-* Fixed Fire Menu display bug
-
-#### New Features
-* Crafting Menu Available
-* Start message
-
-### Week 14 - DONE
-* Cleaned up the code, removed bugs, added features
-
-#### Bugs Removed
-* Fixed information screen text
-
-#### New Features
-* Added Traps
-* Cook/Dry Meat
-* Meat Spoilage
-* Instructions
