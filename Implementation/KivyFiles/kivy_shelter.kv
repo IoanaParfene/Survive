@@ -2,6 +2,27 @@
 
 <ShelterScreen>:
     FloatLayout:
+
+        Label:
+            id: shelter_label
+            text:"shelter: yes"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.49}
+
+        Label:
+            id: raincatcher_label
+            text:"raincatcher: no"
+            size_hint: 0.25, 0.1
+            font_size: self.height*0.4
+            text_size: self.size
+            halign: 'left'
+            valign: 'middle'
+            pos_hint:{"x": 0.05, "y": 0.42}
+
         Button:
             pos_hint:{"x": 0.4, "y": 0.55}
             size_hint: 0.2, 0.2
@@ -25,7 +46,7 @@
         Button:
             id: rain_catcher_button
             pos_hint:{"x": 0.4, "y": 0.3}
-            size_hint: 0.4, 0.2
+            size_hint: 0.45, 0.2
             font_size: self.height*0.3
             background_color: 0.0, 0.0, 0.0, 1.0
             disabled: True

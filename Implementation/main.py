@@ -1,6 +1,6 @@
-from GameLoopManagement import game_loop as gl
+from PythonFiles.Screens import screens as sc
 from kivy.uix.widget import Widget
-from Screens import screens as sc
+from PythonFiles.game_loop import game_loop
 from kivy.clock import Clock
 from kivymd.app import MDApp
 
@@ -17,7 +17,7 @@ class SurviveApp(MDApp):
 
     def run_game(self, *args):
         """ Game loop frame by frame """
-        gl.game_loop()
+        game_loop()
 
     def on_start(self):
         """ Called when starting the application """

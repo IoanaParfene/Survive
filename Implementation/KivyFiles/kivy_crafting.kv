@@ -13,11 +13,12 @@
                     size: self.width, self.height
                     pos: self.pos
 
-        Button:
-            id: craft_image
-            pos_hint:{"x": 0.36, "y": 0.37}
-            size_hint: 0.15, 0.45
-            background_color: 0.1, 0.1, 0.1, 1.0
+        Image:
+            id: craft_pic
+            source: ""
+            size_hint: 0.25, 0.25
+            pos_hint:{"x": 0.31, "y": 0.57}
+            allow_stretch: True
 
         Label
             id: craft_name

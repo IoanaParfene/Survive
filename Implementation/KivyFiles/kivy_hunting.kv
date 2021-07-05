@@ -64,7 +64,7 @@
 
         Button:
             id: set_fish_trap
-            pos_hint:{"x": 0.33, "y": 0.67}
+            pos_hint:{"x": 0.55, "y": 0.67}
             size_hint: 0.2, 0.2
             font_size: self.width*0.13
             background_color: 0.0, 0.0, 0.0, 1.0
@@ -72,11 +72,11 @@
             text: "SET FISH\nTRAP"
             on_release:
                 root.set_trap("fish_trap")
-                Factory.ActionTime("Building...").open()
+                if root.enough_fish_trap_supplies: Factory.ActionTime("Building...").open()
 
         Button:
             id: spear_fish
-            pos_hint:{"x": 0.55, "y": 0.67}
+            pos_hint:{"x": 0.33, "y": 0.67}
             size_hint: 0.2, 0.2
             font_size: self.width*0.13
             background_color: 0.0, 0.0, 0.0, 1.0
@@ -84,6 +84,9 @@
             disabled: True
             opacity: 0
             text: "SPEAR FISH"
+            on_release:
+                root.catch_fish(5)
+                Factory.ActionTime("Stabbing Fish...").open()
 
         Button:
             id: fish
@@ -95,10 +98,13 @@
             disabled: True
             opacity: 0
             text: "FISH"
+            on_release:
+                root.catch_fish(8)
+                Factory.ActionTime("Fishing...").open()
 
         Button:
             id: set_bird_trap
-            pos_hint:{"x": 0.33, "y": 0.45}
+            pos_hint:{"x": 0.55, "y": 0.45}
             size_hint: 0.2, 0.2
             font_size: self.width*0.13
             background_color: 0.0, 0.0, 0.0, 1.0
@@ -106,11 +112,11 @@
             text: "SET BIRD\nTRAP"
             on_release:
                 root.set_trap("bird_trap")
-                Factory.ActionTime("Building...").open()
+                if root.enough_bird_trap_supplies: Factory.ActionTime("Building...").open()
 
         Button:
             id: set_deadfall
-            pos_hint:{"x": 0.33, "y": 0.23}
+            pos_hint:{"x": 0.55, "y": 0.23}
             size_hint: 0.2, 0.2
             font_size: self.width*0.13
             background_color: 0.0, 0.0, 0.0, 1.0
@@ -118,18 +124,7 @@
             text: "SET DEADFALL"
             on_release:
                 root.set_trap("deadfall")
-                Factory.ActionTime("Building...").open()
-
-        Button:
-            id: track
-            pos_hint:{"x": 0.65, "y": 0.3}
-            size_hint: 0.2, 0.2
-            font_size: self.width*0.13
-            background_color: 0.0, 0.0, 0.0, 1.0
-            halign: 'center'
-            disabled: True
-            opacity: 0
-            text: "TRACK"
+                if root.enough_deadfall_supplies: Factory.ActionTime("Building...").open()
 
         Button:
             id: dismantle_traps

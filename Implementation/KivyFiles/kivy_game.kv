@@ -89,7 +89,7 @@
             size_hint: 0.17, 0.23
             text: "TRAPS/HUNT"
             background_color: 0.0, 0.0, 0.0, 1.0
-            font_size: self.height*0.18
+            font_size: self.height*0.2
             on_release:
                 root.manager.transition.direction = "right"
                 root.change_window("hunting")
@@ -110,9 +110,15 @@
             background_color: 0.0, 0.0, 0.0, 1.0
             bold: True
             font_size: self.height*0.5
-            text: "||"
+            text: ""
             on_release:
                 root.manager.transition.direction = "right"
                 root.change_window("pause")
+
+        Image:
+            source: "GraphicFiles/pause_button.png"
+            size_hint: 0.026, 0.044
+            pos_hint:{"x": 0.917, "y": 0.913}
+            allow_stretch: True
 
 
