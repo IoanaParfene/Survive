@@ -1,139 +1,77 @@
 # Survive
-An implementation of the mobile game [Survive](https://play.google.com/store/apps/details?id=com.sandbaygames.survive).
+&nbsp;&nbsp;&nbsp;&nbsp;A **Python** implementation of the **Android** game [**Survive**](https://play.google.com/store/apps/details?id=com.sandbaygames.survive) for my **Bachelor's Degree Thesis** at [UAIC](https://www.uaic.ro/en/)'s [Faculty of Computer Science Iasi](https://www.info.uaic.ro/en/presentation/). The **Documentation** can be found [here](https://github.com/IoanaParfene/Survive/blob/main/Documentation.pdf). <br>
+&nbsp;&nbsp;&nbsp;&nbsp;It falls into the **survival, crafting** and **permanent death** genres.
 
-## Type of Game:
-  * Single Player
-  * Perma-death
-  * Android
-  * Survival
-  * Simulation
-  * RPG
-  * Crafting
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972058-f351fe72-8bd0-45f8-9f3e-301ecafa95b9.png" width="600" height="400">
+</p>
 
-## Core Gameplay - [Download for Android](https://drive.google.com/file/d/17hWR_fhJWUXVsCTYsNLl4vXYGPhCv32P/view?usp=sharing)
-&nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challanging, resource-scarce journey back to the main road, after getting lost
+## Core Gameplay
+&nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challenging, resource-scarce journey back to the main road, after getting lost
 in the woods on a rainy night. **Forage** for wood, berries, water and vines. **Hunt**, **fish**, **rest**, **cook** and **craft** campfires, weapons, traps, bandages and clothing insulators. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;**Travel**, take different turns and make **strategic** choices in order to reach civilization before it is too late. Balance **hunger, temperature, thirst, health** and inventory to avoid **starvation,
-hypothermia, dehydration*** and **illness**. <br>
+hypothermia, dehydration** and **illness**. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;Stay alive or **permanently lose** the game and start over!
+
+## Download for Android
+**APK Download**: https://drive.google.com/file/d/1VrRv3i2gSxKgqYCbXgdQz9mZetU63x-J/view?usp=sharing <br>
+**Download Instructions**: 
+  * Download the APK on an android Mobile device 
+  * Disable any [Google App Store Settings](https://www.nextpit.com/install-apps-outside-of-google-play) that may prevent installation
+  * Install and Play
 
 <hr style="border:2px solid gray"> </hr>
 
-## Progress - [Review Document](https://docs.google.com/document/d/18p3ZqKusjmE7E0jQpLz9sB5ZGjo3yPsahlz2MbFhpps/edit)
+## Interface 
+&nbsp;&nbsp;&nbsp;&nbsp; Survive is a **text-based** game revolved around a network of **screens**.  
 
-### Week 2
-Started a **Python/PyGame** prototype. 
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972233-7c911daf-7aa9-4fd7-8ba3-4271d28fa962.png" width="600" height="400">
+</p>
 
-#### Researched - Excel files
-   * **Actions** - Requirements, Outcome, Duration
-   * **Inventory Items** - Categories, Weight, Actions+Outcomes
+### Game Menu Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972098-5d39752e-73e1-41a5-b76f-57f8cc7f6e62.png" width="700" height="400">
+</p>
 
-#### Implemented
-  * **Inventory Class** + JSon item parsing
-  * **Game Time** - day/night
-  * **Status bars** - with decay over time
-  * **Gameplay Menu Buttons** - Shelter, Fire, Inventory, etc <br>
+### Main Menu and Pause Screens
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972058-f351fe72-8bd0-45f8-9f3e-301ecafa95b9.png" width="450" height="260">
+ <img src="https://user-images.githubusercontent.com/57050677/125972086-3c629e23-08b7-4038-a792-862f14f1f8ac.png" width="450" height="260">
+</p>
 
-### Week 3 - DONE
-Continued to implement the prototype.
+### Crafting Menu Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972143-a8208046-ebf0-40f3-b620-009825b085a6.png" width="450" height="260">
+ <img src="https://user-images.githubusercontent.com/57050677/125972146-f0df5f9e-42d9-406a-93fd-dc7fb8e7f184.png" width="450" height="260">
+</p>
 
-#### Researched
- * Location/Condition/Actions
- * Crafting
- * Traps/Hunting
- * Injury/Illness
+### Shelter and Trap Screens
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972220-99e86575-6245-4ad6-904a-0cb337d8a3b0.png" width="450" height="260">
+ <img src="https://user-images.githubusercontent.com/57050677/125972225-f90478ba-1232-4685-abcc-864d8480e072.png" width="450" height="260">
+</p>
 
-#### Implemented
-* Sleep 
-* Location 
-* Travel 
-* Game Over/ Game Won
-* Some items in inventory + Actions 
-* Fire Starting 
+### Inventory Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972177-28633abf-6f91-4bd0-ba2d-a6640e6de672.png" width="450" height="250">
+ <img src="https://user-images.githubusercontent.com/57050677/125972202-4a20fa6c-cee0-4746-8474-05866b16c05a.png" width="450" height="250">
+</p>
 
-### Week 4 - DONE
-Continued to implement the prototype.
+### Fire Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972151-08497f12-6fce-45c7-b691-a5601ff61d8e.png" width="450" height="250">
+ <img src="https://user-images.githubusercontent.com/57050677/125972153-27517be9-3081-4585-9b0b-9a46fe5cc9e9.png" width="450" height="250">
+</p>
 
-#### Implemented
-* New Game
-* Save/Load
+### Travel Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972230-36b38232-5d9e-477f-9431-3fa453217493.png" width="450" height="250">
+ <img src="https://user-images.githubusercontent.com/57050677/125972228-bbbe25c1-573b-4cb0-8546-a19087a5aa5d.png" width="450" height="250">
+</p>
 
-### Week 5 - DONE
-Started converting code to Kivy
-
-#### Implemented
-* Converted most code(Remaining Inventory and Fire)
-* Added GUI Components
-
-### Week 6 - DONE
-* Created an Inventory Template, found a way to make an Android APK
-
-#### Implemented
-* Item Sloths
-* Inventory Categories
-
-### Week 7 - DONE
-* Created exploration and a functional inventory with all items and their actions 
-
-#### Implemented
-* Throwing Items Away
-* Eating
-* Drinking
-* Bandaging
-* Cutting/Slicing to obtain new items
-* Hunger based Travel
-* Locations and their attributes, including resources
-* Randomized resource lists for each new location
-* Exploration of current location until the resource list is empty
-
-### Week 8 - DONE
-* Cleaned up the code, removed bugs, added features
-
-#### Clean Up
-* Created new .py files
-* Separated screens
-* Separated .kv files
-* Added comments
-
-#### Bugs Removed
-* No more death on calorie deficit
-* No crash on empty inventory slot press
-
-#### New Features
-* Remade all loading/waiting/action screens
-* Added action result screens
-* Added wood getting
-* Cellphone has space=1
-* Weight became space
-* Fire screen item quantity labels added
-* Wood can be scraped to tinder
-* Status bars go below 0 without ruining value increase
-
-### Week 9 - DONE
-* Cleaned up the code, removed bugs, added features
-
-#### New Features
-* Heat decay based on: clothing, day/night, fire, rain, shelter
-* Added rain
-* Added a rain catcher
-* Added water collecting
-
-### Week 10 - DONE
-* Cleaned up the code, removed bugs, added features
-
-#### Bugs Removed
-* Fixed raincatcher bug that allows bringing trash bag water to new location
-* No crash on a specific heat code
-
-#### New Features
-* Implemented space adding items
-* Boil Water
-* Collect dirty water
-* Area map destruction removes knowledge of remaining miles
-* Dirty water removes condition
-* Water bottles can be poured out
-* Flashlight allows seeing direction, exploration and getting wood at night
-* Nightime stops player from exploring and getting wood 8/10 times
-* Exceeding inventory blocks player from travelling
-* Building a rain catcher takes 15 minutes
-
+### End Screen
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/57050677/125972118-06482fd0-6119-4334-808b-519b8daf5893.png" width="450" height="250">
+ <img src="https://user-images.githubusercontent.com/57050677/125972132-eff73f5f-6215-4eec-99ef-7a9dba24fcb4.png" width="450" height="250">
+</p>
