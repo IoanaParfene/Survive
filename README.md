@@ -1,13 +1,13 @@
 # Survive
-&nbsp;&nbsp;&nbsp;&nbsp;A **Python** implementation of the **Android** game [**Survive**](https://play.google.com/store/apps/details?id=com.sandbaygames.survive) for my **Bachelor's Degree Thesis** at [UAIC](https://www.uaic.ro/en/)'s [Faculty of Computer Science Iasi](https://www.info.uaic.ro/en/presentation/). The **Documentation** can be found [here](https://github.com/IoanaParfene/Survive/blob/main/Documentation.pdf). <br>
-&nbsp;&nbsp;&nbsp;&nbsp;It falls into the **survival, crafting** and **permanent death** genres.
+&nbsp;&nbsp;&nbsp;&nbsp;A **Python** [implementation](https://www.youtube.com/watch?v=VmOaUr78XAg) of the **Android** game [**Survive**](https://play.google.com/store/apps/details?id=com.sandbaygames.survive) for my **Bachelor's Degree Thesis** at [UAIC](https://www.uaic.ro/en/)'s [Faculty of Computer Science Iasi](https://www.info.uaic.ro/en/presentation/). The **Documentation** can be found [here](https://github.com/IoanaParfene/Survive/blob/main/Documentation.pdf). <br> 
+&nbsp;&nbsp;&nbsp;&nbsp;It falls under the **survival, crafting** and **permanent death** genres.<br> 
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/57050677/125972058-f351fe72-8bd0-45f8-9f3e-301ecafa95b9.png" width="600" height="400">
 </p>
 
 ## Core Gameplay
-&nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challenging, resource-scarce journey back to the main road, after getting lost
+&nbsp;&nbsp;&nbsp;&nbsp;**Survive** a long, challenging, resource-scarce journey back to the main road after getting lost
 in the woods on a rainy night. **Forage** for wood, berries, water and vines. **Hunt**, **fish**, **rest**, **cook** and **craft** campfires, weapons, traps, bandages and clothing insulators. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;**Travel**, take different turns and make **strategic** choices in order to reach civilization before it is too late. Balance **hunger, temperature, thirst, health** and inventory to avoid **starvation,
 hypothermia, dehydration** and **illness**. <br>
