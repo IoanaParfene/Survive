@@ -16,7 +16,7 @@ hypothermia, dehydration** and **illness**. <br>
 ## Download for Android
 **APK Download**: https://drive.google.com/file/d/1VrRv3i2gSxKgqYCbXgdQz9mZetU63x-J/view?usp=sharing <br>
 **Download Instructions**: 
-  * Download the APK on an android Mobile device 
+  * Download the APK on an Android device 
   * Disable any [Google App Store Settings](https://www.nextpit.com/install-apps-outside-of-google-play) that may prevent installation
   * Install and Play
 
